@@ -1,6 +1,7 @@
 from django.db import models
-from uuid import uuid4
-# Models related to Products data.
+
+
+# Models for Products dataset.
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
@@ -31,3 +32,32 @@ class Game(models.Model):
     
     def __str__(self):
         return self.name
+    
+
+
+# Gift Card Metadata.
+
+PLATFORM_CHOICES = (
+    ('PSN', 'Playstation'),
+    ('XBOX/MS', 'Xbox/Microsoft'),
+    ('STEAM', 'Steam'),
+    ('EPIC GAMES', 'Epic Games'),
+    ('ITUNES', 'Itunes')
+)
+
+REGION_CHOICES = (
+    ('USA', 'United States of America'),
+    ('UK', 'United Kingdoms'),
+    ('GR', 'Germany'),
+    ('FR', 'France'),
+)
+
+class GiftCard(models.Model):
+    name = models.CharField(max_length=255)
+    platform = models.CharField(choices=PLATFORM_CHOICES)
+    value = models.IntegerField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    region = models.CharField(choices=REGION_CHOICES)
+    
+    def __str__(self):
+        return f"{self.platform} - ${self.value} - {self.region}"
