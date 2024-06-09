@@ -1,6 +1,25 @@
 from django.db import models
 
 
+# Global Variables/Choices
+    
+PLATFORM_CHOICES = (
+    ('PSN', 'Playstation'),
+    ('XBOX/MS', 'Xbox/Microsoft'),
+    ('STEAM', 'Steam'),
+    ('EPIC GAMES', 'Epic Games'),
+    ('ITUNES', 'Itunes')
+)
+
+REGION_CHOICES = (
+    ('USA', 'United States of America'),
+    ('UK', 'United Kingdoms'),
+    ('GR', 'Germany'),
+    ('FR', 'France'),
+)
+
+
+
 # Models for Products dataset.
 
 class Category(models.Model):
@@ -37,21 +56,6 @@ class Game(models.Model):
 
 # Gift Card Metadata.
 
-PLATFORM_CHOICES = (
-    ('PSN', 'Playstation'),
-    ('XBOX/MS', 'Xbox/Microsoft'),
-    ('STEAM', 'Steam'),
-    ('EPIC GAMES', 'Epic Games'),
-    ('ITUNES', 'Itunes')
-)
-
-REGION_CHOICES = (
-    ('USA', 'United States of America'),
-    ('UK', 'United Kingdoms'),
-    ('GR', 'Germany'),
-    ('FR', 'France'),
-)
-
 class GiftCard(models.Model):
     name = models.CharField(max_length=255)
     platform = models.CharField(choices=PLATFORM_CHOICES)
@@ -61,3 +65,12 @@ class GiftCard(models.Model):
     
     def __str__(self):
         return f"{self.platform} - ${self.value} - {self.region}"
+    
+    
+    
+# Account base models
+
+class Account(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    platform = models.CharField(choices=PLATFORM_CHOICES)
+    games = models.TextField(max_length=1500)
