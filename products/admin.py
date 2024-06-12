@@ -13,9 +13,19 @@ class SystemRequiredInline(admin.StackedInline):
 class GameAdmin(admin.ModelAdmin):
     form = GameForm
     inlines = [SystemRequiredInline]
+    
+    
+    
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'parent')
+    
+    
 
-admin.site.register(Category)
-admin.site.register(GiftCard)
+class GiftCardAdmin(admin.ModelAdmin):
+    list_display = ('platform', 'value', 'region')
+
+admin.site.register(Category, CategoryAdmin)
+admin.site.register(GiftCard, GiftCardAdmin)
 admin.site.register(Account)
 admin.site.register(Game, GameAdmin)
 admin.site.register(SystemRequirement)
