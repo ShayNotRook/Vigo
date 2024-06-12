@@ -38,7 +38,8 @@ class Game(models.Model):
     description = models.TextField(max_length=1500)
     price = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='games/')
+    image = models.ImageField(upload_to='games/', null=True, blank=True)
+    quantity = models.IntegerField()
     # system_requirements = models.OneToOneField(SystemRequirements, on_delete=models.CASCADE)
     
     def __str__(self):
@@ -62,6 +63,7 @@ class GiftCard(models.Model):
     value = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     region = models.CharField(choices=REGION_CHOICES, max_length=255)
+    quantity = models.IntegerField()
     
     def __str__(self):
         return f"{self.platform} - ${self.value} - {self.region}"

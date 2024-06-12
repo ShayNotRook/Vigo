@@ -16,14 +16,20 @@ class GameAdmin(admin.ModelAdmin):
     
     
     
+    
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'parent')
+    list_filter = ('parent', 'slug')
     
     
 
 class GiftCardAdmin(admin.ModelAdmin):
-    list_display = ('platform', 'value', 'region')
+    list_display = ('platform', 'value', 'region', 'quantity')
+    list_filter = ('platform', 'value', 'region')
 
+
+
+# Registerars
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(GiftCard, GiftCardAdmin)
 admin.site.register(Account)
