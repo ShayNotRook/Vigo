@@ -39,7 +39,8 @@ class Game(models.Model):
     price = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='games/', null=True, blank=True)
-    quantity = models.IntegerField()
+    gift_quantity = models.IntegerField(name='Steam Gifts', null=True)
+    cd_key_quantity = models.IntegerField(name='Cd Keys', null=True)
     # system_requirements = models.OneToOneField(SystemRequirements, on_delete=models.CASCADE)
     
     def __str__(self):
@@ -52,7 +53,16 @@ class SystemRequirement(models.Model):
     cpu = models.CharField(max_length=255)
     ram = models.CharField(max_length=100)
     graphic_card = models.CharField(max_length=255)
-    storage = models.CharField(max_length=100)    
+    storage = models.CharField(max_length=100)
+
+
+class ProductKey(models.Model):
+    key = models.CharField(max_length=50, unique=True)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE,
+                             related_name='cd_keys')
+    issued_date = models.DateField(auto_now_add=True)
+    redeemed = models.BooleanField(default=False)
+    platform = models.CharField(max_length=100 ,choices=PLATFORM_CHOICES)
 
 
 # Gift Card Metadata.
