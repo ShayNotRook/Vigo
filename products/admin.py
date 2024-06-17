@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .forms import GameForm
-from .models import (Category, Game, GiftCard, Account, SystemRequirement, ProductKey)
+from .models import (Category, Game, GiftCard, GiftcardKey, Account, SystemRequirement, ProductKey)
 # Register your models here.
 
 class SystemRequiredInline(admin.StackedInline):
@@ -30,6 +30,12 @@ class GiftCardAdmin(admin.ModelAdmin):
     list_filter = ('platform', 'value', 'region')
 
 
+class GiftCardKeyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'short_key', 'giftcard')
+    
+    def short_key(self, obj):
+        return obj.key[:9] + "..."
+
 
 # ProductKey Model Settings
 class ProductKeyAdmin(admin.ModelAdmin):
@@ -43,6 +49,7 @@ class ProductKeyAdmin(admin.ModelAdmin):
 # Registerars
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(GiftCard, GiftCardAdmin)
+admin.site.register(GiftcardKey, GiftCardKeyAdmin)
 admin.site.register(Account)
 admin.site.register(Game, GameAdmin)
 admin.site.register(SystemRequirement)
