@@ -37,6 +37,8 @@ class ProductKeyAdmin(admin.ModelAdmin):
 
     def short_key(self, obj):
         return obj.key[:10] + '...'
+    
+    
 
 # Registerars
 admin.site.register(Category, CategoryAdmin)

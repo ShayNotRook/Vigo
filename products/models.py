@@ -8,7 +8,8 @@ PLATFORM_CHOICES = (
     ('XBOX/MS', 'Xbox/Microsoft'),
     ('STEAM', 'Steam'),
     ('EPIC GAMES', 'Epic Games'),
-    ('ITUNES', 'Itunes')
+    ('ITUNES', 'Itunes'),
+    
 )
 
 REGION_CHOICES = (
@@ -73,12 +74,25 @@ class GiftCard(models.Model):
     value = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     region = models.CharField(choices=REGION_CHOICES, max_length=255)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField(default=0)
     
     def __str__(self):
         return f"{self.platform} - ${self.value} - {self.region}"
     
     
+    
+class GiftcardKey(models.Model):
+    key = models.CharField(max_length=50)
+    giftcard = models.ForeignKey(GiftCard, on_delete=models.CASCADE, related_name='keys')
+    redeemed = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return self.key[:10]
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.giftcard.quantity = self.giftcard.keys.count()
+        self.giftcard.save()
     
 # Account base models
 
