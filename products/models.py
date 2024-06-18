@@ -33,13 +33,17 @@ class Category(models.Model):
     
 
 # Models related to Games dataset and metadata.
+
+def game_cover_upload_to(instance, filename):
+    # File will be uploaded to MEDIA_ROOT/game_covers/<filename>
+    return f'game_covers/{filename}'
     
 class Game(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=1500)
     price = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='games/', null=True, blank=True)
+    image = models.ImageField(upload_to=game_cover_upload_to, null=True, blank=True)
     gift_quantity = models.IntegerField(name='Steam Gifts', null=True)
     cd_key_quantity = models.IntegerField(name='Cd Keys', null=True)
     # system_requirements = models.OneToOneField(SystemRequirements, on_delete=models.CASCADE)
