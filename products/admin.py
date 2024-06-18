@@ -39,7 +39,7 @@ class GiftCardKeyAdmin(admin.ModelAdmin):
 
 # ProductKey Model Settings
 class ProductKeyAdmin(admin.ModelAdmin):
-    list_display = ('short_key', 'game', 'redeemed', 'platform')
+    list_display = ( 'id', 'short_key', 'game', 'redeemed', 'platform')
 
     def short_key(self, obj):
         return obj.key[:10] + '...'
