@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Vigo Login</title>
 </head>
 <body>
-    <h1>Welcome, {{ user.first_name }}</h1>
-
-    <p>Status: {{ user.groups.all.0.name }}</p>
-    <p>Discount: {{ user.get_discount }}</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
