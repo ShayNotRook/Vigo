@@ -7,6 +7,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 @login_required
-def profiel(request):
+def profile(request):
     user = request.user
-    return render(request, 'users/profile_view.html', {'user': user})
+    return render(request, 'profile_view.html', {'user': user})
