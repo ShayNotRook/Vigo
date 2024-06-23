@@ -1,25 +1,68 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-brand img {
+            height: 50px;
+        }
+
+        .navbar-nav {
+            text-decoration: none;
+            color: #fff;
+            font: 24px;
+            transition: color 0.3s;
+
+        }
+
+    </style>
 </head>
 <body>
-    <nav>
-        <div>
-            
-            {% if user.is_authenticated %}
-                <a href="{% url 'logout' %}">Logout</a>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a>
-            {% endif %}
-                
+    <nav class="navbar navbar-expand-sm sticky-top" style="background-color: navy;">
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'vigo-transparent.png' %}" alt="Logo"></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Shop</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
+                <li class="nav-item active">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    {% else %}
+                        <a class="nav-link" href="{% url 'logout' %}"></a>
+                    {% endif %}
+                </li>
+            </ul>
         </div>
     </nav>
-    {% block content %}Welcome to Vigo{% endblock %}
-    <footer>
-
-    </footer>
+    
+    {% block content %}
+        <h1>Welcome to Vigo!</h1>
+    {% endblock %}
+        
 </body>
 </html>
