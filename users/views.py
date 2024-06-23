@@ -26,4 +26,4 @@ class CustomLogoutView(View):
         return redirect('login')
     
     def get(self, request, *args, **kwargs):
-        return redirect('profile') # Redirect to a profile if accessed via GET
+        return render(request, 'registration/logout_confirm.html') # Redirect to a profile if accessed via GET
