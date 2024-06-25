@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>{% if user.is_authenticated %}Welcome, {{ user.first_name }} {% else %} {{ welcome_text }}{% endif %}</h1>
+<h1 style="margin-left: 50px;">
+    {% if user.is_authenticated %}
+        Welcome, {{ user.first_name }}
+    {% else %} 
+        {{ welcome_text }}
+    {% endif %}
+</h1>
+<p style="margin-left: 50px;">User Debug: {{ user.username }} | Authenticated: {{ user.is_authenticated }}</p>
 {% endblock %}
