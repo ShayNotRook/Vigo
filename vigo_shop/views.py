@@ -7,9 +7,9 @@ from django.contrib.auth import get_user_model
 
 user = get_user_model()
 
-class ContactView(TemplateView):
-    template_name = 'contact-us.html'
+# class ContactView(TemplateView):
+#     template_name = 'contact-us.html'
     
-def base_context(request):
-    return render(request, 'base.html', {'user': user})
+# def base_context(request):
+#     return render(request, 'base.html', {'user': user})
     
