@@ -53,6 +53,8 @@ class Dev(Configuration):
         'shop',
         
         # Installed Packages
+        'crispy_forms',
+        'crispy_bootstrap4',
         
     ]
 
@@ -149,6 +151,9 @@ class Dev(Configuration):
 
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+    # Crispy Settings
+    CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 class Prod(Dev):
     DEBUG = False
