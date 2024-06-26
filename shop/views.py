@@ -9,3 +9,14 @@ def ShopHome(request):
 
 def ContactView(request):
     return render(request, 'contact-us.html')
+
+
+def AboutUsView(request):
+    from .utils import load_about_us
+    
+    about_us_content = load_about_us()
+    context = {
+        'about_us': about_us_content
+    }
+    
+    return render(request, 'about.html', context)
