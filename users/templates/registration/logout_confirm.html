@@ -1,16 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logout Confirm</title>
-</head>
-<body>
-    <h1>Are you sure you want to logout?</h1>
-    <form id="logout-form" action="{% url 'logout' %}" method="post">
+{% extends 'base.html' %}
+
+{% block title%}
+    Logout Confirm
+{% endblock %}
+
+{% block content %}
+    <h1 style="margin-left: 20px;">Are you sure you want to logout?</h1>
+    <form class="container-fluid" id="logout-form" action="{% url 'logout' %}" method="post">
         {% csrf_token %}
-        <button type="submit">Yes, Logout</button>
+        <button class="btn btn-danger" type="submit">Yes, Logout</button>
+        <button class="btn btn-outline-secondary"><a class="link-secondary" href="{% url 'profile' %}">Cancel</a></button>
     </form>
-    <a href="{% url 'profile' %}">Cancel</a>
-</body>
-</html>
+    <!-- <a style="margin-left: 20px;" href="{% url 'profile' %}">Cancel</a> -->
+
+{% endblock %}
