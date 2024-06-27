@@ -104,3 +104,15 @@ class Account(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     platform = models.CharField(choices=PLATFORM_CHOICES, max_length=255)
     games = models.TextField(max_length=1500)
+    
+    
+# Items
+class GameItem(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    quantity = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.name} - {self.game}"

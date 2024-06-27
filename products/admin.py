@@ -1,7 +1,14 @@
 from django.contrib import admin
 
 from .forms import GameForm
-from .models import (Category, Game, GiftCard, GiftcardKey, Account, SystemRequirement, ProductKey)
+from .models import (Category, Game, GiftCard, GiftcardKey,
+                     Account, SystemRequirement, ProductKey,
+                     GameItem)
+
+# Utility Functions
+
+    
+
 # Register your models here.
 
 class SystemRequiredInline(admin.StackedInline):
@@ -13,7 +20,10 @@ class SystemRequiredInline(admin.StackedInline):
 class GameAdmin(admin.ModelAdmin):
     form = GameForm
     inlines = [SystemRequiredInline]
-    list_display = ('name', 'category', 'price')
+    list_display = ('name', 'category', 'Price')
+    
+    def Price(self, obj):
+        return str(obj.price) + '$'
     
     
     
@@ -31,9 +41,9 @@ class GiftCardAdmin(admin.ModelAdmin):
 
 
 class GiftCardKeyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'short_key', 'giftcard')
+    list_display = ('id', 'Key', 'giftcard')
     
-    def short_key(self, obj):
+    def Key(self, obj):
         return obj.key[:9] + "..."
 
 
@@ -45,6 +55,16 @@ class ProductKeyAdmin(admin.ModelAdmin):
         return obj.key[:10] + '...'
     
     
+    
+class GameItemAdmin(admin.ModelAdmin):
+    list_display = ('game', 'name', 'quantity', 'Price')
+    
+    def Price(self, obj):
+        return str(obj.price) + '$'
+    
+    
+    
+    
 
 # Registerars
 admin.site.register(Category, CategoryAdmin)
@@ -54,3 +74,4 @@ admin.site.register(Account)
 admin.site.register(Game, GameAdmin)
 admin.site.register(SystemRequirement)
 admin.site.register(ProductKey, ProductKeyAdmin)
+admin.site.register(GameItem, GameItemAdmin)
