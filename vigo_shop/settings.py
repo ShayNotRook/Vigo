@@ -51,6 +51,7 @@ class Dev(Configuration):
         'products',
         'users',
         'shop',
+        'payments',
         
         # Installed Packages
         'crispy_forms',
