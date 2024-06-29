@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Cart, CartItem, Order
+from .forms import CartItemForm
 # Register your models here.
 
 
@@ -10,6 +11,7 @@ class CartAdmin(admin.ModelAdmin):
 class CartItemAdmin(admin.ModelAdmin):
     list_display = ('cart', 'get_content_object_name', 'quantity', 'get_total_price')
     readonly_fields = ('get_total_price',)
+    form = CartItemForm
     
     def get_total_price(self, obj):
         return obj.get_total_price()
