@@ -39,7 +39,7 @@ class Order(models.Model):
     ]
     
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     status = models.CharField(choices=STATUS_CHOICES, max_length=10, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
