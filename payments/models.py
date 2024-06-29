@@ -28,3 +28,31 @@ class CartItem(models.Model):
 
     def get_total_price(self):
         return self.quantity * self.content_object.price
+    
+    
+    
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('paid', 'Paid'),
+        ('completed', 'Completed'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    status = models.CharField(choices=STATUS_CHOICES, max_length=10, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f'Order {self.id} - {self.user.username}'
+    
+    def mark_as_paid(self):
+        self.status = 'paid'
+        self.save()
+        
+    def mark_as_completed(self):
+        self.status = 'completed'
+        self.save()
+        
+         
