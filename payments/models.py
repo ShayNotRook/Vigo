@@ -55,4 +55,4 @@ class Order(models.Model):
         self.status = 'completed'
         self.save()
         
-         
+        

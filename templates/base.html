@@ -33,7 +33,12 @@
             color: #fff;
             font: 24px;
             transition: color 0.3s;
+            justify-content: space-between;
 
+        }
+        .user img {
+            height: 40px;
+            
         }
 
     </style>
@@ -58,6 +63,12 @@
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'about' %}">About Us</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="user" href="{% url 'profile' %}"><img src="{% static 'user.png' %}" alt="profile"></a>
+                </li>
+                <li class="nav-item active">
+
                 </li>
             </ul>
         </div>
