@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+    <link rel="stylesheet" href="{% static 'frontend/styles.css' %}">
+
     <title>{% block title %}Vigo{% endblock %}</title>
     <style>
         body {
@@ -36,10 +37,6 @@
             justify-content: space-between;
 
         }
-        .user img {
-            height: 40px;
-            
-        }
 
     </style>
 </head>
@@ -64,19 +61,37 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'about' %}">About Us</a>
                 </li>
-                <li class="nav-item active">
+                <!-- <li class="nav-item active">
                     <a class="user" href="{% url 'profile' %}"><img src="{% static 'user.png' %}" alt="profile"></a>
-                </li>
-                <li class="nav-item active">
-
-                </li>
+                </li> -->
             </ul>
+            <div class="right-icons">
+                <div class="profile">
+                    <a href="{% url 'profile' %}">
+                        <img src="{% static 'user.png' %}" alt="profile">
+                    </a>
+                </div>
+                <div class="cart" id="cart">
+                    <div class="cart-summary">
+                        <img src="{% static 'shopping-cart.png' %}" alt="cart">
+                    </div>
+                    <div class="cart-details">
+                        <ul>
+                            <li>Item 1 - $50</li>
+                            <li>Item 2 - $150</li>
+                            <li>Item 3 - $200</li>
+                        </ul>
+                        <button onclick="checkout()">Checkout</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
     
     {% block content %}
         <h1>Welcome to Vigo!</h1>
     {% endblock %}
+    <script src="{% static 'frontend/script.js' %}"></script>
         
 </body>
 </html>
