@@ -3,7 +3,7 @@ from django.contrib import admin
 from .forms import GameForm
 from .models import (Category, Game, GiftCard, GiftcardKey,
                      Account, SystemRequirement, ProductKey,
-                     GameItem)
+                     GameItem, Offer)
 
 # Utility Functions
 
@@ -62,7 +62,13 @@ class GameItemAdmin(admin.ModelAdmin):
     def Price(self, obj):
         return str(obj.price) + '$'
     
+
+# Offer Model settings
+class OfferAdmin(admin.ModelAdmin):
+    list_display = ('title', 'short_description', 'start_date', 'end_date', 'content_object')
     
+    def short_description(self, obj):
+        return obj.description[:10] + '...'
     
     
 
@@ -75,3 +81,4 @@ admin.site.register(Game, GameAdmin)
 admin.site.register(SystemRequirement)
 admin.site.register(ProductKey, ProductKeyAdmin)
 admin.site.register(GameItem, GameItemAdmin)
+admin.site.register(Offer, OfferAdmin)
