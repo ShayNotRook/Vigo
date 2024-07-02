@@ -63,6 +63,7 @@ class Game(models.Model):
     image = models.ImageField(upload_to=game_cover_upload_to, null=True, blank=True)
     gift_quantity = models.IntegerField(name='Steam Gifts', null=True)
     cd_key_quantity = models.IntegerField(name='Cd Keys', null=True)
+    platform = models.CharField(choices=PLATFORM_CHOICES, default='None', max_length=50)
     # system_requirements = models.OneToOneField(SystemRequirements, on_delete=models.CASCADE)
     
     def __str__(self):
@@ -96,6 +97,7 @@ class GiftCard(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     region = models.CharField(choices=REGION_CHOICES, max_length=255)
     quantity = models.PositiveIntegerField(default=0)
+    image = models.ImageField()
     
     def __str__(self):
         return f"{self.platform} - ${self.value} - {self.region}"

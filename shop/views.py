@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from products.models import Game, GiftCard
 
 # Create your views here.
 def ShopHome(request):
@@ -20,3 +20,10 @@ def AboutUsView(request):
     }
     
     return render(request, 'about.html', context)
+
+
+def product_list(request):
+    games = Game.objects.all()
+    giftcards = GiftCard.objects.all()
+    products = list(games) + list(giftcards)
+    return render(request, 'products.html', {'products': products})
