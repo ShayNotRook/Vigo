@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 # Global Variables/Choices
     
@@ -19,6 +20,22 @@ REGION_CHOICES = (
     ('FR', 'France'),
 )
 
+
+# Offer model
+class Offer(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    discount_percentage = models.DecimalField(max_digits=4, decimal_places=2)
+    
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    
+    @staticmethod
+    def calculate_offer_price(offer, product):
+        return product.price * (1 - offer.discount_percentage / 100)
 
 
 # Models for Products dataset.
