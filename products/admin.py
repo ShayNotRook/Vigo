@@ -20,7 +20,7 @@ class SystemRequiredInline(admin.StackedInline):
 class GameAdmin(admin.ModelAdmin):
     form = GameForm
     inlines = [SystemRequiredInline]
-    list_display = ('name', 'category', 'Price')
+    list_display = ('name', 'category', 'Price', 'platform')
     
     def Price(self, obj):
         return str(obj.price) + '$'

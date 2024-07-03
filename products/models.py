@@ -5,11 +5,11 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 # Global Variables/Choices
     
 PLATFORM_CHOICES = (
-    ('PSN', 'Playstation'),
-    ('XBOX/MS', 'Xbox/Microsoft'),
-    ('STEAM', 'Steam'),
-    ('EPIC GAMES', 'Epic Games'),
-    ('ITUNES', 'Itunes'),
+    ('Playstation', 'PSN'),
+    ('Xbox', 'XBOX/MS'),
+    ('Steam', 'STEAM'),
+    ('Epic Games', 'EPIC GAMES'),
+    ('Itunes', 'ITUNES'),
     
 )
 
@@ -58,11 +58,11 @@ def game_cover_upload_to(instance, filename):
 class Game(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=1500)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=game_cover_upload_to, null=True, blank=True)
-    gift_quantity = models.IntegerField(name='Steam Gifts', null=True)
-    cd_key_quantity = models.IntegerField(name='Cd Keys', null=True)
+    gift_stock = models.IntegerField(name='Steam Gifts', null=True)
+    cd_key_stock = models.IntegerField(name='Cd Keys', null=True)
     platform = models.CharField(choices=PLATFORM_CHOICES, default='None', max_length=50)
     # system_requirements = models.OneToOneField(SystemRequirements, on_delete=models.CASCADE)
     

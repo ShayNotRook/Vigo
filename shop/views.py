@@ -26,4 +26,5 @@ def product_list(request):
     games = Game.objects.all()
     giftcards = GiftCard.objects.all()
     products = list(games) + list(giftcards)
+    
     return render(request, 'products.html', {'products': products})
