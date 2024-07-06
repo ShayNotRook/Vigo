@@ -78,17 +78,22 @@ python manage.py runserver
 
 Contributions are welcome! Please follow these steps to contribute:
 1. **Fork the repository**
-2. **Create a new branch**
+
+2. **Create a new branch:**
     ```bash
     git checkout -b feature/YourFeature
     ```
+
 3. **Make your changes**
+
 4. **Commit your changes**
     ```bash
     git commit -am 'Add some feature
     ```
+
 5. **Push to the branch**
     ```bash
     git push origin feature/YourFeature
     ```
+
 6. **Open a pull request**
