@@ -1,3 +1,5 @@
+# Vigo
+
 Vigo is a web application designed to offer a wide range of gaming products, including games, gift cards, keys, and more. This project is currently in the local development phase.
 
 ## Table of Contents
