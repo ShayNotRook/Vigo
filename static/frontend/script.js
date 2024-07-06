@@ -9,6 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
             cartDetails.style.display = 'none';
         }
     });
+
+    // Hamburger Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuContent = document.getElementById('menu-content');
+
+    menuToggle.addEventListener('click', function() {
+        menuContent.classList.toggle('active');
+    });
 });
 
 function checkout() {

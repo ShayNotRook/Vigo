@@ -85,6 +85,65 @@ html, body {
     margin-bottom: 5px;
 }
 
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    position: relative;
+}
+
+.menu-toggle {
+    cursor: pointer;
+}
+
+.menu-toggle img {
+    width: 30px;
+    height: 30px;
+}
+
+.menu-content {
+    /* display: none; */
+    position: fixed;
+    right: -250px; /* Start Hidden */
+    width: 250px;
+    height: 100%;
+    /* top: 100%; */
+    /* background-color: white;
+    border: 1px solid #ccc;
+    width: 200px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+    background: white;
+    border-left: 1px solid #ccc;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    padding-top: 60;
+}
+
+.menu-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-content ul li {
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-content ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.menu-content ul li a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Style for when the menu is toggled */
+.menu-content.active {
+    right: 0; /* Slide in*/
+}
 
 /* Item Card Styles */
 
@@ -166,6 +225,9 @@ html, body {
     color: #666;
 }
 
+.content {
+    flex: 1;
+}
 
 .footer {
     background-color: #333;

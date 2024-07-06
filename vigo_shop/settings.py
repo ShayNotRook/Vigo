@@ -83,6 +83,7 @@ class Dev(Configuration):
                     'django.contrib.auth.context_processors.auth',
                     'django.contrib.messages.context_processors.messages',
                     'users.contexts.user_context',
+                    'products.contexts.top_level_categories'
                 ],
             },
         },
