@@ -7,6 +7,12 @@
 html, body {
     height: 100%;
 }
+
+body {
+    overflow-x: hidden;
+}
+
+
 .nav {
     display: flex;
     justify-content: space-between;
@@ -113,6 +119,7 @@ html, body {
     width: 200px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
     background: rgb(59, 82, 195);
+    color: white;
     border-left: 1px solid #ccc;
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
@@ -139,13 +146,39 @@ html, body {
 }
 
 .menu-content ul li a:hover {
-    background-color: #f0f0f0;
+    background-color: rgba(255, 255, 255, 0.1);
     color: #333;
+}
+
+.menu-content ul li ul.subcategories {
+    display: none; /* Start Hidden */
+    padding-left: 16px;
+    background: #21206a;
+}
+
+.menu-content ul li ul.subcategories li {
+    border-bottom: none;
 }
 
 /* Style for when the menu is toggled */
 .menu-content.active {
     right: 0; /* Slide in*/
+}
+
+/* Over Styles */
+.overlay { 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    display: none;
+}
+
+.overlay.active {
+    display: block; /* Show when active */
 }
 
 /* Item Card Styles */
