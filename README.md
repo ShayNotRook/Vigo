@@ -73,7 +73,7 @@ To set up the project locally, follow these steps:
 To start the development server, run:
 ```bash
 python manage.py runserver
-
+```
 ## Contributing
 
 Contributions are welcome! Please follow these steps to contribute:
