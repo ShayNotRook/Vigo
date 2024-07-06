@@ -17,8 +17,37 @@ document.addEventListener('DOMContentLoaded', function() {
     menuToggle.addEventListener('click', function() {
         menuContent.classList.toggle('active');
     });
+    // Function to handle category click
+    function handleCategoryClick(event) {
+        const categoryId = event.target.dataset.id; // Get the category ID\
+        const url = '/category/${categoryId}/subcategories/'; // URL to fetch subcategories
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                const subcategoryList = document.getElementById('subcategory-list');
+                subcategoryList.innerHTML = ''; // Clear any existing subcategories
+                data.forEach(subcategory => {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = subcategory.name;
+                    subcategoryList.appendChild(listItem);
+                });
+            })
+            .catch(error => {
+                console.error('Error', error);
+                alert('An error occured while loading subcategories');  
+            });
+
+    }
+
+    // Attach event listeners to all top-level category items
+    var categoryItems = document.querySelectorAll('.top-level-category');
+    categoryItems.forEach(item => {
+            item.addEventListener('click', handleCategoryClick);
+    });
 });
 
 function checkout() {
     alert('Proceed to checkout')
 }
+
