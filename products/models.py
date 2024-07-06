@@ -42,11 +42,14 @@ class Offer(models.Model):
 
 class Category(models.Model):
     title = models.CharField(max_length=100)
-    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    parent = models.ForeignKey('self', related_name='subcategories',on_delete=models.CASCADE, null=True, blank=True)
     slug = models.SlugField(unique=True)
     
     def __str__(self):
         return self.title
+    
+    def get_subcategories(self):
+        return self.subcategories.all()
     
 
 # Models related to Games dataset and metadata.
