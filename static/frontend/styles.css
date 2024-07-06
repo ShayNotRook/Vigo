@@ -37,6 +37,44 @@ body {
 
 }
 
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 60%;
+}
+
+.search-input {
+    border: none;
+    padding: 4px;
+    flex: 1;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-button {
+    background-color: rgb(59, 82, 195);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    align-items: center;
+    border-radius: 2px;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: rgb(47, 66, 156);
+}
+
+.search-button i {
+    font-size: 16px;
+}
+
 .right-icons {
     display: flex;
     align-items: center;
