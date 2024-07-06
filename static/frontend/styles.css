@@ -1,3 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+.navbar-brand img {
+    height: 50px;
+}
+
+.navbar-nav {
+    text-decoration: none;
+    color: #fff;
+    font: 24px;
+    transition: color 0.3s;
+    justify-content: space-between;
+
+}
+
 .right-icons {
     display: flex;
     align-items: center;
@@ -139,5 +172,7 @@
     color: #fff;
     text-align: center;
     padding: 20px 0;
-    margin-top: 40px;
+    margin-top: 400px;
+    width: 100%;
+
 }
