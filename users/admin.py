@@ -10,7 +10,15 @@ from .models import Profile
 
 class UserAdmin(BaseUserAdmin):
     list_display = ('username', 'email', 'last_login', 'is_superuser', 'is_active')
+    
+    
+class ProfileAdmin(admin.ModelAdmin):
+    model = Profile
+    list_display = ('user', 'short_bio')
+    
+    def short_bio(self, obj):
+        return obj.bio[:12] + '...'
 
 
 admin.site.register(User, UserAdmin)
-admin.site.register(Profile)
+admin.site.register(Profile, ProfileAdmin)
