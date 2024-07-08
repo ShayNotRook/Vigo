@@ -49,7 +49,7 @@ class Dev(Configuration):
         
         # Local Apps
         'products',
-        'users',
+        'users.apps.UsersConfig',
         'shop',
         'payments',
         

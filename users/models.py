@@ -37,4 +37,4 @@ def user_picture_upload_to(instance, filename):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to=user_picture_upload_to, default='default-avatar.jpg')
-    bio = models.TextField(blank=True, null=True)
+    bio = models.TextField(blank=True, null=True, default='<blank>')
