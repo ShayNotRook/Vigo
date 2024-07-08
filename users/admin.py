@@ -4,6 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth import get_user_model
 # from django.contrib.auth.admin import UserAdmin
 User = get_user_model()
+from .models import Profile
 
 # Register your models here.
 
@@ -12,3 +13,4 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Profile)
