@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'frontend/css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<body class="contact-body">
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <form method="post" action="{% url 'contact' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_name">Name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="id_message">Message:</label>
+                {{ form.message }}
+            </div>
+            <button type="submit" class="contact-button">Send</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
+    

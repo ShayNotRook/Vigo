@@ -11,9 +11,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 
+from environs import Env
+
 from pathlib import Path
 
 from configurations import Configuration
+
+env = Env()
+env.read_env()
 
 class Dev(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +29,7 @@ class Dev(Configuration):
     # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'django-insecure-ob6)&7j!$s-0mf4hi5undd#m=y9wq-3sd!=+#czzslmh5zjl1s'
+    SECRET_KEY = env.str('SECRET_KEY')
 
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
@@ -157,6 +162,16 @@ class Dev(Configuration):
 
     # Crispy Settings
     CRISPY_TEMPLATE_PACK = 'bootstrap4'
+    
+    
+    # Email Settings
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 class Prod(Dev):
     DEBUG = False
