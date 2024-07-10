@@ -99,8 +99,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.id) {
+                console.log(data)
                 updateCartIcon(data.items.length, data.get_total_price);
                 showCartNotification('Item added to cart!');
+                fetchCartDetails();
             } else {
                 alert('Failed to add item to cart.');
             }
@@ -113,13 +115,14 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             updateCartDetails(data.items, data.get_total_price);
+            updateCartIcon(data.items.length, data.get_total_price);
         })
         .catch(error => console.error('Error:', error));
     }
 
     function updateCartIcon(itemCount, totalPrice) {
-        const cartSummary = document.querySelector('.cart-summary span');
-        cartSummary.textContent = `${itemCount} Items - $${totalPrice}`;
+        const cartSummary = document.querySelector('.cart-summary .item-count');
+        cartSummary.textContent = itemCount;
     }
 
     function updateCartDetails(items, totalPrice) {
@@ -157,9 +160,17 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.appendChild(notification);
 
         setTimeout(() => {
-            notification.remove();
-        }, 2000);
+            notification.classList.add('fade');
+            notification.addEventListener('transitionend', () => {
+                notification.remove();
+            });
+        }, 5000);
     }
+
+    // Fetch cart details when the page load
+    fetchCartDetails();
+    
+
 });
 
 function checkout() {

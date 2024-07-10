@@ -14,6 +14,9 @@ class CartItemSerializer(serializers.ModelSerializer):
     def get_content_object(self, obj):
         return obj.content_object.name
     
+    def get_price(self, obj):
+        return obj.content_object.price
+    
     
 
 class CartSerializer(serializers.ModelSerializer):

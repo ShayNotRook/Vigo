@@ -12,12 +12,14 @@ body {
     overflow-x: hidden;
 }
 
+
 .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 .navbar-brand {
     display: flex;
@@ -97,6 +99,18 @@ body {
 .cart-summary {
     display: flex;
     align-items: center;
+    position: relative;
+}
+
+.cart-summary div {
+    position: absolute;
+    top: 15px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 100%;
+    padding: 2px 8px;
+    font-size: 12px;
 }
 
 /* .cart-summary span {
@@ -137,6 +151,23 @@ body {
 
 .cart-details ul li {
     margin-bottom: 5px;
+}
+
+.cart-notification {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #4CAf50;
+    color: white;
+    padding: top;
+    border-radius: 5px;
+    z-index: 2000;
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+
+.cart-notification.fade {
+    opacity: 0;
 }
 
 /* Hamburger Menu Styles */

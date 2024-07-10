@@ -105,6 +105,7 @@ class GiftCard(models.Model):
     region = models.CharField(choices=REGION_CHOICES, max_length=255)
     quantity = models.PositiveIntegerField(default=0)
     image = models.ImageField()
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     
     def __str__(self):
         return f"{self.platform} - ${self.value} - {self.region}"
