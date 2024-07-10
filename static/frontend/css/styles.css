@@ -99,6 +99,17 @@ body {
     align-items: center;
 }
 
+/* .cart-summary span {
+    background-color: red;
+    color: white;
+    border-radius: 100%;
+    padding: 6px 6px;
+    font-size: 12px;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+} */
+
 /* .cart-summary img {
     height: 50px;
 } */
@@ -244,6 +255,20 @@ body {
     padding: 16px;
 }
 
+.item-card-content button {
+    background-color: rgb(59, 82, 195);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.item-card-content button:hover {
+    background-color: rgb(47, 66, 156);
+}
+
 .item-card-price {
     font-size: 1.2em;
     color: #888;
@@ -311,3 +336,4 @@ body {
     width: 100%;
 
 }
+

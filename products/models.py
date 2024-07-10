@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 # Global Variables/Choices
     
@@ -71,6 +72,9 @@ class Game(models.Model):
     
     def __str__(self):
         return self.name
+    
+    def get_content_type(self):
+        return ContentType.objects.get_for_model(self)
 
 class SystemRequirement(models.Model):
     game = models.OneToOneField(Game, on_delete=models.CASCADE, default=1)
@@ -105,6 +109,8 @@ class GiftCard(models.Model):
     def __str__(self):
         return f"{self.platform} - ${self.value} - {self.region}"
     
+    def get_content_type(self):
+        return ContentType.objects.get_for_model(self)
     
     
 class GiftcardKey(models.Model):

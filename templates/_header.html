@@ -1,7 +1,6 @@
 {% load static %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'frontend/css/style.css' %}">
 {% endblock %}
     
 
@@ -45,12 +44,11 @@
                 <div class="cart" id="cart">
                     <div class="cart-summary">
                         <img src="{% static 'shopping-cart.png' %}" alt="cart">
+                        <span>0 Items - $0</span>
                     </div>
                     <div class="cart-details">
                         <ul>
-                            <li>Item 1 - $50</li>
-                            <li>Item 2 - $150</li>
-                            <li>Item 3 - $200</li>
+                            
                         </ul>
                         <button class="btn btn-outline-primary" onclick="checkout()">Checkout</button>
                     </div>

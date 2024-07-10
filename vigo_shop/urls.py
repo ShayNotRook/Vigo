@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('users.urls')),
     path('', include('shop.urls')),
     # path('contact/', ContactView.as_view(), name='contact')
+    # path('', include('payments.urls'))
 ]
 
 if settings.DEBUG:
