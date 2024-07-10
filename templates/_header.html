@@ -1,6 +1,10 @@
 {% load static %}
 
-<header>
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'frontend/css/style.css' %}">
+{% endblock %}
+    
+
     <nav class="navbar navbar-expand-sm sticky-top" style="background-color: navy;">
         <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'vigo-transparent.png' %}" alt="Logo"></a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -76,4 +80,4 @@
             </div>
         </div>
     </nav>
-</header>
+<div class="overlay" id="overlay"></div>

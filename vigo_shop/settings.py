@@ -61,6 +61,7 @@ class Dev(Configuration):
         # Installed Packages
         'crispy_forms',
         'crispy_bootstrap4',
+        'rest_framework',
         
     ]
 

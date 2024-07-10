@@ -12,7 +12,6 @@ body {
     overflow-x: hidden;
 }
 
-
 .nav {
     display: flex;
     justify-content: space-between;
