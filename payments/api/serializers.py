@@ -5,10 +5,11 @@ from payments.models import Cart, CartItem
 
 class CartItemSerializer(serializers.ModelSerializer):
     content_object = serializers.SerializerMethodField()
+    price = serializers.SerializerMethodField()
     
     class Meta:
         model = CartItem
-        fields = ['id', 'content_object', 'quantity']
+        fields = ['id', 'content_object', 'quantity', 'price']
         
     
     def get_content_object(self, obj):
