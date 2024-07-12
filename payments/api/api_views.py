@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from django.contrib.contenttypes.models import ContentType
 
-from payments.models import Cart, CartItem
+from payments.models import Cart, CartItem, Order, OrderItem
 from .serializers import CartSerializer, CartItemSerializer
 
 
@@ -40,3 +40,53 @@ def cart_details_api(request):
     cart = Cart.objects.get(user=request.user)
     serializer = CartSerializer(cart)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def remove_from_cart_api(request):
+    try:
+        item_id = request.data.get('item_id')
+        quantity = request.data.get('quantity')
+        cart_item = CartItem.objects.get(id=item_id, cart__user=request.user)
+        
+        if cart_item.quantity > int(quantity):
+            cart_item.quantity -= int(quantity)
+            cart_item.save()
+        else:
+            cart_item.delete()
+        
+        cart = Cart.objects.get(user=request.user)
+        serializer = CartSerializer(cart)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def checkout_api(request):
+    try:
+        cart = Cart.objects.get(user=request.user)
+        # Logic to create an Order from the Cart
+        # Over simplified, need to add extra logic to handle payments, etc.
+        order = Order.objects.create(user=request.user)
+        
+        for item in cart.items.all():
+            OrderItem.objects.create(
+                order=order,
+                content_type=item.content_type,
+                object_id=item.object_id,
+                quantity=item.quantity,
+                price=item.content_object.price,
+            )
+            item.delete()
+            
+        cart.delete()
+        
+        return Response({'status': 'success', 'order_id': order.id}, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
