@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Cart, CartItem, Order
+from .models import Cart, CartItem, Order, OrderItem
 from .forms import CartItemForm
 # Register your models here.
 
@@ -20,12 +20,33 @@ class CartItemAdmin(admin.ModelAdmin):
     def get_content_object_name(self, obj):
         return obj.content_object.name
     get_content_object_name.short_description = 'Product'
+    
+    
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0 # Remove the extra blank line
+    fields = ('content_object', 'quantity', 'price', 'total_price')
+    readonly_fields = ('content_object', 'price', 'total_price')
+    
+    def total_price(self, obj):
+        return obj.total_price
+    total_price.short_description = 'Total Price'
+    
 
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'status', 'created_at', 'updated_at')
+    inlines = [OrderItemInline]
     list_filter = ('status',)
     actions = ['mark_as_paid', 'mark_as_completed']
+    fieldsets = (
+        ('Basic Info',
+            {'fields': ('user', 'status', 'updated_at', 'created_at')}),
+        ('Order Items',
+            {'fields': (),
+            }),
+    )
+    readonly_fields = ('user', 'created_at', 'updated_at', 'total_price')
     
     def mark_as_paid(self, request, queryset):
         queryset.update(status='paid')
@@ -34,6 +55,10 @@ class OrderAdmin(admin.ModelAdmin):
     def mark_as_completed(self, request, queryset):
         queryset.update(status='completed')
     mark_as_completed.short_description = 'Mark selected orders as completed'
+    
+    def total_price(self, obj):
+        return obj.total_price
+    total_price.short_description = 'Total Price'
     
 
 

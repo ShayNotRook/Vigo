@@ -84,6 +84,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Remove from Cart
+    document.querySelectorAll('.remove-from-cart').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault()
+            const itemId = this.dataset.itemId;
+            const quantity = this.previousElementSibling.value;
+
+            console.log('Item ID:', itemId); // Debuggin
+            console.log('quantity:', quantity); // Debuggin
+
+            if (!itemId || !quantity) {
+                console.error('Missing itemId or quantity');
+                return
+            }
+
+            removeFromCart(itemId, quantity);
+        })
+    })
+
     function addToCart(contentTypeId, objectId) {
         fetch('/api/cart/add/', {
             method: 'POST',
@@ -110,6 +129,35 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    function removeFromCart(itemId, quantity) {
+        fetch('/api/cart/remove/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+                item_id: itemId,
+                quantity: quantity
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Debugging: Log the data
+            if (data.id) {
+                updateCartIcon(data.items.length, data.get_total_price);
+                showCartNotification('Item removed from cart!');
+                fetchCartDetails();
+            } else {
+                alert('Failed to remove item from cart.');
+            }
+        })
+        .catch(error => {
+            console.error('Error', error);
+            alert('An error occurred. Please try again.');
+        });
+    }
+
     function fetchCartDetails() {
         fetch('/api/cart/details/')
         .then(response => response.json())
@@ -130,7 +178,9 @@ document.addEventListener('DOMContentLoaded', function() {
         cartDetails.innerHTML = '';
         items.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = `${item.content_object} (x${item.quantity}) - $${item.price}`;
+            li.innerHTML = `${item.content_object} (x${item.quantity}) - $${item.price} 
+                <input type="number" min="1" max="${item.quantity}" value="1" class="remove-quantity" data-item-id="${item.id}">
+                <button class="remove-from-cart" data-item-id="${item.id}">Remove</button>`;
             cartDetails.appendChild(li);
         });
         const total = document.createElement('p');
@@ -170,6 +220,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch cart details when the page load
     fetchCartDetails();
     
+    // Handle Checkout
+    document.getElementById('checkout-button').addEventListener('click', function() {
+        fetch('/api/cart/checkout/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Checkout successful! Order ID: ' + data.order_id);
+                fetchCartDetails(); // Clear the cart after checkout
+            } else {
+                alert('Checkout failed. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during checkout. Please try again.');
+        });
+    });
 
 });
 

@@ -3,8 +3,11 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 from products.models import Game, GiftCard
+from payments.models import Cart, CartItem
 
 from .forms import ContactForm
+
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def ShopHome(request):
@@ -50,3 +53,18 @@ def product_list(request):
     products = list(games) + list(giftcards)
     
     return render(request, 'products.html', {'products': products})
+
+@login_required
+def cart_view(request):
+    try:
+        cart = Cart.objects.get(user=request.user)
+        
+    except Cart.DoesNotExist:
+        cart = None
+        
+        
+    context = {
+        'cart': cart
+    }
+    
+    return render(request, 'cart.html', context)
