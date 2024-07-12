@@ -40,11 +40,8 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status',)
     actions = ['mark_as_paid', 'mark_as_completed']
     fieldsets = (
-        ('Basic Info',
+        ('Order Info',
             {'fields': ('user', 'status', 'updated_at', 'created_at')}),
-        ('Order Items',
-            {'fields': (),
-            }),
     )
     readonly_fields = ('user', 'created_at', 'updated_at', 'total_price')
     
