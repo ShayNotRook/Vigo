@@ -2,13 +2,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const cart = document.getElementById('cart');
     const cartDetails = cart.querySelector('.cart-details');
 
-    cart.addEventListener('click', function() {
-        if (cartDetails.style.display === 'none' || cartDetails.style.display === '') {
-            cartDetails.style.display = 'block';
-        } else {
-            cartDetails.style.display = 'none';
+    cart.addEventListener('click', function(event) {
+        if (!cartDetails.contains(event.target)) {
+            if (cartDetails.style.display === 'none' || cartDetails.style.display === '') {
+                cartDetails.style.display = 'block';
+            } else {
+                cartDetails.style.display = 'none';
+            }
         }
     });
+
+    cartDetails.addEventListener('click', function(event) {
+        event.stopPropagation();
+    })
 
     // Hamburger Menu Toggle
     const menuToggle = document.getElementById('menu-toggle');
@@ -85,23 +91,26 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Remove from Cart
-    document.querySelectorAll('.remove-from-cart').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault()
-            const itemId = this.dataset.itemId;
-            const quantity = this.previousElementSibling.value;
+    function attachRemoveListener() {
+        document.querySelectorAll('.remove-from-cart').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault()
+                const itemId = this.dataset.itemId;
+                const quantity = this.previousElementSibling.value;
 
-            console.log('Item ID:', itemId); // Debuggin
-            console.log('quantity:', quantity); // Debuggin
+                console.log('Item ID:', itemId); // Debuggin
+                console.log('quantity:', quantity); // Debuggin
 
-            if (!itemId || !quantity) {
-                console.error('Missing itemId or quantity');
-                return
-            }
+                if (!itemId || !quantity) {
+                    console.error('Missing itemId or quantity');
+                    return
+                }
 
-            removeFromCart(itemId, quantity);
+                removeFromCart(itemId, quantity);
+                fetchCartDetails();
+            })
         })
-    })
+    }
 
     function addToCart(contentTypeId, objectId) {
         fetch('/api/cart/add/', {
@@ -186,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const total = document.createElement('p');
         total.textContent = `Total: $${totalPrice}`;
         cartDetails.appendChild(total);
+        attachRemoveListener();
     }
 
     function getCookie(name) {
