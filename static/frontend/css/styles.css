@@ -153,6 +153,33 @@ body {
     margin-bottom: 5px;
 }
 
+.cart-notification li:last-child {
+    border-bottom: none;
+}
+
+.cart-details .remove-quantity {
+    width: 40px;
+    padding: 4px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.cart-details .remove-from-cart {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cart-details .remove-from-cart:hover {
+    background-color: #ff3b3b;
+}
+
 .cart-notification {
     position: fixed;
     top: 10px;

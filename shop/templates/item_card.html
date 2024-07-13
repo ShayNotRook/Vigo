@@ -5,8 +5,8 @@
         <h3 class="item-card-title">{{ product.name }}</h3>
         <p class="item-card-price">{{ product.price }}$</p>
         <p class="item-card-platform">{{ product.platform }}</p>
-        <p>Content Type Id: {{ product.get_content_type.id }}</p>
-        <p>Object ID: {{ product.id }}</p>
+        <!-- <p>Content Type Id: {{ product.get_content_type.id }}</p>
+        <p>Object ID: {{ product.id }}</p> -->
         <button class="add-to-cart"
                 data-content-type-id="{{ product.get_content_type.id }}"
                 data-object-id="{{ product.id }}">
