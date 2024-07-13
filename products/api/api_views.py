@@ -1,0 +1,34 @@
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from products.models import Category, Game, GiftCard
+
+from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerialzer
+    
+    def get_serializer_class(self):
+        if self.action == 'games':
+            return GameSerializer
+        elif self.action == 'giftcards':
+            return GiftCardSerializer
+        return super().get_serializer_class()
+    
+    @action(detail=True, methods=['get'])
+    def games(self, request, pk=None):
+        category = self.get_object()
+        games = Game.objects.filter(category=category)
+        serializer = GameSerializer(games, many=True)
+        return Response(serializer.data)
+    
+    
+    @action(detail=True, methods=['get'])
+    def giftcards(self, request, pk=None):
+        category = self.get_object()
+        giftcards = GiftCard.objects.filter(category=category)
+        serializer = GiftCardSerializer(giftcards, many=True)
+        return Response(serializer.data)
