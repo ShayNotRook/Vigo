@@ -19,17 +19,34 @@ class CategoryViewSet(viewsets.ModelViewSet):
             return GiftCardSerializer
         return super().get_serializer_class()
     
+    # @action(detail=True, methods=['get'])
+    # def games(self, request, slug=None):
+    #     category = self.get_object()
+    #     games = Game.objects.filter(category=category)
+    #     serializer = GameSerializer(games, many=True)
+    #     return Response(serializer.data)
+    
+    
+    # @action(detail=True, methods=['get'])
+    # def giftcards(self, request, slug=None):
+    #     category = self.get_object()
+    #     giftcards = GiftCard.objects.filter(category=category)
+    #     serializer = GiftCardSerializer(giftcards, many=True)
+    #     return Response(serializer.data)
+    
+    
     @action(detail=True, methods=['get'])
-    def games(self, request, slug=None):
+    def products(self, request, slug=None):
         category = self.get_object()
         games = Game.objects.filter(category=category)
-        serializer = GameSerializer(games, many=True)
-        return Response(serializer.data)
-    
-    
-    @action(detail=True, methods=['get'])
-    def giftcards(self, request, slug=None):
-        category = self.get_object()
         giftcards = GiftCard.objects.filter(category=category)
-        serializer = GiftCardSerializer(giftcards, many=True)
-        return Response(serializer.data)
+        
+        products = list(games) + list(giftcards)
+        
+        serialized_games = GameSerializer(games, many=True).data
+        serialized_giftcards = GiftCardSerializer(giftcards, many=True).data
+        
+        return Response({
+            'games': serialized_games,
+            'giftcards': serialized_giftcards,
+        })
