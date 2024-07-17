@@ -62,6 +62,7 @@ class Dev(Configuration):
         'crispy_forms',
         'crispy_bootstrap4',
         'rest_framework',
+        'drf_spectacular',
         
     ]
 
@@ -126,6 +127,20 @@ class Dev(Configuration):
             'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
         },
     ]
+    
+    
+    # REST Settings
+    REST_FRAMEWORK = {
+        'DEFAULT_SCHEMA_CLASS':
+            'drf_spectacular.openapi.AutoSchema',
+    }
+    
+    # Spectacular Settings
+    SPECTACULAR_SETTINGS = {
+        'TITLE': 'Vigo API Documentation',
+        'DESCRIPTION': 'Explore the magic behind Vigo',
+        'VERSION':'1.0.0'
+    }
 
 
     # Internationalization

@@ -7,6 +7,8 @@ from rest_framework.routers import DefaultRouter
 
 from payments.api import api_views as payment_view
 
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+
 # Router Registers
 router = DefaultRouter()
 router.register(r'categories', CategoryViewSet, basename='category')
@@ -23,5 +25,9 @@ urlpatterns = [
     path('api/cart/details/', payment_view.cart_details_api, name='cart_details_api'),
     path('api/cart/checkout/', payment_view.checkout_api, name='checkout_api'),
     path('api/cart/remove/', payment_view.remove_from_cart_api, name='remove_from_cart'),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    # API Schema
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(), name='redoc'),
+    path('api/schema/swagger/', SpectacularSwaggerView.as_view(), name='swagger'),
 ]
