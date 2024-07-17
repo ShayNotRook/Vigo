@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
-
+from django.utils.text import slugify
 # Global Variables/Choices
     
 PLATFORM_CHOICES = (
@@ -50,6 +50,12 @@ class Category(models.Model):
     def __str__(self):
         return self.title
     
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+            
+    
     def get_subcategories(self):
         return self.subcategories.all()
     
@@ -63,22 +69,43 @@ class Category(models.Model):
             subcategory_urls.append({
                 'name': subcategory.name,
                 'url': subcategory.get_absolute_url(),
-                'subcategories': subcategory.get_full_path()
+                'subcategories': subcategory.get_full_path(),
+                'products': subcategory.get_all_products(),
             })
         return subcategory_urls
     
+    def get_all_products(self):
+        games = Game.objects.filter(category=self)
+        giftcards = GiftCard.objects.filter(category=self)
+        products = list(games) + list(giftcards)
+        return products
+                             
 
 # Models related to Games dataset and metadata.
+
+# Base Product Model
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(max_length=1000, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    
+    class Meta:
+        abstract = True
+        
+    def __str__(self):
+        return self.title
 
 def game_cover_upload_to(instance, filename):
     # File will be uploaded to MEDIA_ROOT/game_covers/<filename>
     return f'game_covers/{filename}'
     
-class Game(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(max_length=1500)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+class Game(Product):
+    category = models.ForeignKey(Category, related_name='games', on_delete=models.CASCADE)
+    # name = models.CharField(max_length=255)
+    # description = models.TextField(max_length=1500)
+    # price = models.DecimalField(max_digits=6, decimal_places=2)
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=game_cover_upload_to, null=True, blank=True)
     gift_stock = models.IntegerField(name='Steam Gifts', null=True)
     cd_key_stock = models.IntegerField(name='Cd Keys', null=True)
@@ -99,6 +126,7 @@ class SystemRequirement(models.Model):
     ram = models.CharField(max_length=100)
     graphic_card = models.CharField(max_length=255)
     storage = models.CharField(max_length=100)
+    
 
 
 class ProductKey(models.Model):
@@ -112,15 +140,16 @@ class ProductKey(models.Model):
 
 # Gift Card Metadata.
 
-class GiftCard(models.Model):
-    name = models.CharField(max_length=255)
+class GiftCard(Product):
+    category = models.ForeignKey(Category, related_name='giftcards', on_delete=models.CASCADE)
+    # name = models.CharField(max_length=255)
     platform = models.CharField(choices=PLATFORM_CHOICES, max_length=255)
     value = models.IntegerField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     region = models.CharField(choices=REGION_CHOICES, max_length=255)
     quantity = models.PositiveIntegerField(default=0)
     image = models.ImageField()
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    # price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     
     def __str__(self):
         return f"{self.platform} - ${self.value} - {self.region}"
@@ -151,11 +180,12 @@ class Account(models.Model):
     
     
 # Items
-class GameItem(models.Model):
-    name = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+class GameItem(Product):
+    category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
+    # name = models.CharField(max_length=100)
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    # price = models.DecimalField(max_digits=6, decimal_places=2)
     quantity = models.IntegerField(default=0)
     
     def __str__(self):

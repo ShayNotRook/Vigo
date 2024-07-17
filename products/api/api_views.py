@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from products.models import Category, Game, GiftCard
 
-from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer
+from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer, ProductSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -38,17 +38,24 @@ class CategoryViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'])
     def products(self, request, slug=None):
         category = self.get_object()
-        products = {}
+        response_data = {}
         
-        games = Game.objects.filter(category=category)
-        if games.exists():
-            products['games'] = GameSerializer(games, many=True).data
+        products = category.get_all_products()
+        if products.exists():
+            response_data['products'] = ProductSerializer(products, many=True, context=self.get_serializer_context()).data
+        
+        subcategories = category.get_subcategories()
+        if subcategories.exists():
+            response_data['subcategories'] = CategorySerialzer(subcategories, many=True, context=self.get_serializer_context()).data
+        
+        # games = Game.objects.filter(category=category)
+        # if games.exists():
+        #     products['games'] = GameSerializer(games, many=True).data
             
-        giftcards = GiftCard.objects.filter(category=category)
-        if giftcards.exists():
-            products['giftcards'] = GiftCardSerializer(giftcards, many=True).data
+        # giftcards = GiftCard.objects.filter(category=category)
+        # if giftcards.exists():
+        #     products['giftcards'] = GiftCardSerializer(giftcards, many=True).data
         
+        # return Response(products)
         
-
-        
-        return Response(products)
+        return Response(response_data)
