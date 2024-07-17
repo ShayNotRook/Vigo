@@ -8,7 +8,7 @@ from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer, 
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
     serializer_class = CategorySerialzer
     lookup_field = 'slug'
     
@@ -18,21 +18,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
         elif self.action == 'giftcards':
             return GiftCardSerializer
         return super().get_serializer_class()
-    
-    # @action(detail=True, methods=['get'])
-    # def games(self, request, slug=None):
-    #     category = self.get_object()
-    #     games = Game.objects.filter(category=category)
-    #     serializer = GameSerializer(games, many=True)
-    #     return Response(serializer.data)
-    
-    
-    # @action(detail=True, methods=['get'])
-    # def giftcards(self, request, slug=None):
-    #     category = self.get_object()
-    #     giftcards = GiftCard.objects.filter(category=category)
-    #     serializer = GiftCardSerializer(giftcards, many=True)
-    #     return Response(serializer.data)
     
     
     @action(detail=True, methods=['get'])
@@ -48,6 +33,23 @@ class CategoryViewSet(viewsets.ModelViewSet):
         if subcategories.exists():
             response_data['subcategories'] = CategorySerialzer(subcategories, many=True, context=self.get_serializer_context()).data
         
+        return Response(response_data)
+    
+    # @action(detail=True, methods=['get'])
+    # def games(self, request, slug=None):
+    #     category = self.get_object()
+    #     games = Game.objects.filter(category=category)
+    #     serializer = GameSerializer(games, many=True)
+    #     return Response(serializer.data)
+    
+    
+    # @action(detail=True, methods=['get'])
+    # def giftcards(self, request, slug=None):
+    #     category = self.get_object()
+    #     giftcards = GiftCard.objects.filter(category=category)
+    #     serializer = GiftCardSerializer(giftcards, many=True)
+    #     return Response(serializer.data)
+        
         # games = Game.objects.filter(category=category)
         # if games.exists():
         #     products['games'] = GameSerializer(games, many=True).data
@@ -57,5 +59,4 @@ class CategoryViewSet(viewsets.ModelViewSet):
         #     products['giftcards'] = GiftCardSerializer(giftcards, many=True).data
         
         # return Response(products)
-        
-        return Response(response_data)
+    
