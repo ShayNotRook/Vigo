@@ -38,15 +38,17 @@ class CategoryViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'])
     def products(self, request, slug=None):
         category = self.get_object()
+        products = {}
+        
         games = Game.objects.filter(category=category)
+        if games.exists():
+            products['games'] = GameSerializer(games, many=True).data
+            
         giftcards = GiftCard.objects.filter(category=category)
+        if giftcards.exists():
+            products['giftcards'] = GiftCardSerializer(giftcards, many=True).data
         
-        products = list(games) + list(giftcards)
         
-        serialized_games = GameSerializer(games, many=True).data
-        serialized_giftcards = GiftCardSerializer(giftcards, many=True).data
+
         
-        return Response({
-            'games': serialized_games,
-            'giftcards': serialized_giftcards,
-        })
+        return Response(products)
