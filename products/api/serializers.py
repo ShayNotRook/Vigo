@@ -4,6 +4,8 @@ from products.models import Game, GiftCard, Category
 
 
 class CategorySerialzer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='category-detail', lookup_field='slug')
+    
     class Meta:
         model = Category
         fields = '__all__'

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.urls import reverse
 
 # Global Variables/Choices
     
@@ -51,6 +52,20 @@ class Category(models.Model):
     
     def get_subcategories(self):
         return self.subcategories.all()
+    
+    def get_absolute_url(self):
+        return reverse('category_detail', kwargs={'slug': self.slug})
+    
+    def get_full_path(self):
+        subcategories = self.get_subcategories()
+        subcategory_urls = []
+        for subcategory in subcategories:
+            subcategory_urls.append({
+                'name': subcategory.name,
+                'url': subcategory.get_absolute_url(),
+                'subcategories': subcategory.get_full_path()
+            })
+        return subcategory_urls
     
 
 # Models related to Games dataset and metadata.
