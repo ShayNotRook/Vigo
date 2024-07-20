@@ -31,10 +31,8 @@ class ProductSerializer(serializers.ModelSerializer):
 class GameSerializer(ProductSerializer):
     class Meta(ProductSerializer.Meta):
         model = Game
-        fields = '__all__'
         
 
 class GiftCardSerializer(serializers.ModelSerializer):
     class Meta(ProductSerializer.Meta):
         model = GiftCard
-        fields = '__all__'

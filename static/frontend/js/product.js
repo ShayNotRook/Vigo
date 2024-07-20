@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const productItem = document.createElement('div');
             productItem.className = 'product-item';
             productList.innerHTML = `
-            <img src="${product.image.url}" alt="${product.name}"> \
+            <img src='${product.image.url}' alt="${product.name}"> \
             <h3>${product.name}</h3> \
             <p>Price: $${product.price}</p>`;
             productList.appendChild(productItem);
-            console.log(product.url)
+            console.log(product.image.url)
         });
         categoryContainer.appendChild(productList);
         }
