@@ -60,7 +60,7 @@ class Category(models.Model):
         return self.subcategories.all()
     
     def get_absolute_url(self):
-        return reverse('category_detail', kwargs={'slug': self.slug})
+        return reverse('category-detail', kwargs={'slug': self.slug})
     
     def get_full_path(self):
         subcategories = self.get_subcategories()

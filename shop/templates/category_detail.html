@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    {{ category.name }}
+{% endblock %}
+
+{% block content %}
+    <h2>{{ category.name }}</h2>
+
+    {% if subcategories.exists %}
+        <h2>Subcategories</h2>
+        <ul>
+            {% for subcategory in subcategories %}
+                <li><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    
+    {% if products %}
+        <h2>Products</h2>
+        <div class="product-list">
+            
+            {% for product in products %}
+                <div class="product-item">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    <h3>{{ product.name }}</h3>
+                    <p>Price: {{ product.price }}</p>
+                </div>
+            {% endfor %}
+                
+        </div>
+    {% endif %}
+        
+
+{% endblock %}
+    

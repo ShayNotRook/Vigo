@@ -61,11 +61,11 @@
                         <ul>
                             {% for category in top_level_categories %}
                                 <li>
-                                    <a href="#" class="top-level-category">{{ category.title }}</a>
+                                    <a href="#" data-slug="{{ cateogory.slug }}" class="top-level-category">{{ category.title }}</a>
                                     {% if category.subcategories.all %}
                                         <ul class="subcategories">
                                             {% for subcategory in category.subcategories.all %}
-                                                <li><a href="#">{{ subcategory.title }}</a></li>
+                                                <li><a href="#" data-slug="{{ subcategory.slug }}">{{ subcategory.title }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     {% endif %}

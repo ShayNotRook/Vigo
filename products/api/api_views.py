@@ -8,7 +8,7 @@ from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer, 
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.filter(parent__isnull=True).prefetch_related('subcategories')
+    queryset = Category.objects.all()
     serializer_class = CategorySerialzer
     lookup_field = 'slug'
     
@@ -26,7 +26,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
         response_data = {}
         
         products = category.get_all_products()
-        if products.exists():
+        if products:
             response_data['products'] = ProductSerializer(products, many=True, context=self.get_serializer_context()).data
         
         subcategories = category.get_subcategories()

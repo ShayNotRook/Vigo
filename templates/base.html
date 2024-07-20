@@ -16,13 +16,13 @@
     {% include '_header.html' %}
 </header>
 <body>
-    <div class="content">
-        {% block content %}
-            <h1>Welcome to Vigo!</h1>
-        {% endblock %}
-    </div>
-    {% include '_footer.html' %}
-    <script src="{% static 'script.js' %}"></script>
+    {% block content %}{% endblock %}
+    <div id="category-container"></div>
+    <footer>
+        {% include '_footer.html' %}
+    </footer>
+    <script src="{% static 'frontend/js/script.js' %}"></script>
+    <script src="{% static 'js/product.js' %}"></script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>

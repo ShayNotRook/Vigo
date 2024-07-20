@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function fetchCartDetails() {
-        fetch('/api/cart/details/')
+        fetch(`/api/cart/details/`)
         .then(response => response.json())
         .then(data => {
             updateCartDetails(data.items, data.get_total_price);
