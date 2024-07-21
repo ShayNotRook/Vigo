@@ -24,9 +24,18 @@ class CategorySerialzer(serializers.ModelSerializer):
         return []
         
 class ProductSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+    
     class Meta:
         model = Game
-        fields = '__all__'
+        fields = ['id', 'name', 'price', 'description', 'category', 'image_url']
+    
+    def get_image_url(self, obj):
+        request = self.context.get('request')
+        if obj.image and hasattr(obj.image, 'url'):
+            return request.build_absolute_uri(obj.image.url)
+        return None    
+        
 
 class GameSerializer(ProductSerializer):
     class Meta(ProductSerializer.Meta):

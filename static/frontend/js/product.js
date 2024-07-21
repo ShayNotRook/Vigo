@@ -39,14 +39,15 @@ document.addEventListener('DOMContentLoaded', function() {
         productList.className = 'product-list';
         productList.innerHTML = '<h2>Products</h2>';
         data.products.forEach(product => {
+            const imageUrl = product.image_url ? product.image_url : '/static/default-cover.png';
             const productItem = document.createElement('div');
             productItem.className = 'product-item';
-            productList.innerHTML = `
-            <img src='${product.image.url}' alt="${product.name}"> \
-            <h3>${product.name}</h3> \
-            <p>Price: $${product.price}</p>`;
+            productItem.innerHTML = `
+                <img src='${imageUrl}' alt="${product.name}"> \
+                <h3>${product.name}</h3> \
+                <p>Price: $${product.price}</p>`;
             productList.appendChild(productItem);
-            console.log(product.image.url)
+            // console.log(product.image.url)
         });
         categoryContainer.appendChild(productList);
         }
