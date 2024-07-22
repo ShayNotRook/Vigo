@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.core.mail import send_mail
 from django.conf import settings
 
-from products.models import Game, GiftCard
+from products.models import Game, GiftCard, Category
 from payments.models import Cart, CartItem
 
 from .forms import ContactForm
@@ -68,3 +68,17 @@ def cart_view(request):
     }
     
     return render(request, 'cart.html', context)
+
+
+def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = category.get_all_products()
+    subcategories = category.get_subcategories()
+    
+    context = {
+        'category': category,
+        'products': products,
+        'subcategories': subcategories
+    }
+    
+    return render(request, 'shop/category_detail.html', context)

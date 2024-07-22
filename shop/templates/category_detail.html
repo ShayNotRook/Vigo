@@ -12,7 +12,7 @@
         <h2>Subcategories</h2>
         <ul>
             {% for subcategory in subcategories %}
-                <li><a href="{{ subcategory.get_absolute_url }}">{{ subcategory.name }}</a></li>
+                <li><a href="{% url 'category-detail' subcategory.slug %}">{{ subcategory.name }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
