@@ -57,7 +57,7 @@ class ProductKeyAdmin(admin.ModelAdmin):
     
     
 class GameItemAdmin(admin.ModelAdmin):
-    list_display = ('game', 'name', 'quantity', 'Price')
+    list_display = ('name', 'game', 'quantity', 'Price')
     
     def Price(self, obj):
         return str(obj.price) + '$'

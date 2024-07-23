@@ -81,4 +81,4 @@ def category_detail(request, slug):
         'subcategories': subcategories
     }
     
-    return render(request, 'shop/category_detail.html', context)
+    return render(request, 'category_detail.html', context)

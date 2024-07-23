@@ -33,6 +33,23 @@
 }
 
 /* Product list styling */
+.product-header {
+    background-color: #4555a3;
+    margin-left: 20px;
+    box-sizing: border-box;
+    max-width: 150px;
+    border-radius: 8px;
+}
+
+.product-header h2 {
+    text-align: center;
+    font-size: 30px;
+    padding: 4px;
+    color: #f9f9f9;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-shadow: #000000;
+}
+
 .product-list {
     display: flex;
     flex-wrap: wrap;

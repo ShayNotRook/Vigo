@@ -20,7 +20,7 @@ urlpatterns = [
     path('products/', shop_views.product_list, name='product_list'),
     path('products/search', product_search, name='search'),
     path('cart/', shop_views.cart_view, name='cart_view'),
-    path('/category/<slug:slug>/', shop_views.category_detail, name='category-detail'),
+    path('category/<slug:slug>/', shop_views.category_detail, name='category-detail'),
     # Payments app API urls
     path('api/cart/add/', payment_view.add_to_cart_api, name='add_to_cart_api'),
     path('api/cart/details/', payment_view.cart_details_api, name='cart_details_api'),

@@ -77,7 +77,8 @@ class Category(models.Model):
     def get_all_products(self):
         games = Game.objects.filter(category=self)
         giftcards = GiftCard.objects.filter(category=self)
-        products = list(games) + list(giftcards)
+        gameitems = GameItem.objects.filter(category=self)
+        products = list(games) + list(giftcards) + list(gameitems)
         return products
                              
 

@@ -8,7 +8,7 @@
 {% block content %}
     <h2>{{ category.name }}</h2>
 
-    {% if subcategories.exists %}
+    <!-- {% if subcategories.exists %}
         <h2>Subcategories</h2>
         <ul>
             {% for subcategory in subcategories %}
@@ -17,16 +17,18 @@
         </ul>
     {% endif %}
 
-    
+     -->
     {% if products %}
-        <h2>Products</h2>
+        <div class="product-header">
+            <h2>Products</h2>
+        </div>
         <div class="product-list">
             
             {% for product in products %}
                 <div class="product-item">
                     <img src="{{ product.image.url }}" alt="{{ product.name }}">
                     <h3>{{ product.name }}</h3>
-                    <p>Price: {{ product.price }}</p>
+                    <p>Price: {{ product.price }}$</p>
                 </div>
             {% endfor %}
                 
