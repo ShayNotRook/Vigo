@@ -142,6 +142,10 @@ class ProductKey(models.Model):
 
 # Gift Card Metadata.
 
+def gift_cover_upload_to(instance, filename):
+    # File will be uploaded to MEDIA_ROOT/gift_covers/<filename>
+    return f'gift_covers/{filename}'
+
 class GiftCard(Product):
     category = models.ForeignKey(Category, related_name='giftcards', on_delete=models.CASCADE)
     # name = models.CharField(max_length=255)
@@ -150,6 +154,7 @@ class GiftCard(Product):
     # category = models.ForeignKey(Category, on_delete=models.CASCADE)
     region = models.CharField(choices=REGION_CHOICES, max_length=255)
     quantity = models.PositiveIntegerField(default=0)
+    image = models.ImageField(upload_to=gift_cover_upload_to)
     # price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     
     def __str__(self):
@@ -181,6 +186,11 @@ class Account(models.Model):
     
     
 # Items
+
+def item_cover_upload_to(instance, filename):
+    # File will be uploaded to MEDIA_ROOT/item_covers/<filename>
+    return f'item_covers/{filename}'
+
 class GameItem(Product):
     category = models.ForeignKey(Category, related_name='items', on_delete=models.CASCADE)
     # name = models.CharField(max_length=100)
@@ -188,6 +198,7 @@ class GameItem(Product):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     # price = models.DecimalField(max_digits=6, decimal_places=2)
     quantity = models.IntegerField(default=0)
+    image = models.ImageField(upload_to=item_cover_upload_to)
     
     def __str__(self):
         return f"{self.name} - {self.game}"

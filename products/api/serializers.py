@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from products.models import Game, GiftCard, Category, Product
+from products.models import Game, GiftCard, Category, Product, GameItem
 
 
 class CategorySerialzer(serializers.ModelSerializer):
@@ -42,6 +42,21 @@ class GameSerializer(ProductSerializer):
         model = Game
         
 
-class GiftCardSerializer(serializers.ModelSerializer):
+class GiftCardSerializer(ProductSerializer):
     class Meta(ProductSerializer.Meta):
         model = GiftCard
+        
+        
+class GameItemSerializer(ProductSerializer):
+    class Meta(ProductSerializer.Meta):
+        model = GameItem
+        
+        
+class ItemSerializer(serializers.Serializer):
+    def to_representation(self, instance):
+        if isinstance(instance, Game):
+            serializer = GameSerializer(instance, context=self.context)
+        elif isinstance(instance, GiftCard):
+            serializer = GiftCardSerializer(instance, context=self.context)
+        elif isinstance(instance, GameItem):
+            serializer = GameItemSerializer(instance, context=self.context)

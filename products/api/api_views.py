@@ -2,9 +2,11 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from products.models import Category, Game, GiftCard
+from django.shortcuts import get_object_or_404
 
-from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer, ProductSerializer
+from products.models import Category, Game, GiftCard, GameItem
+
+from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer, ProductSerializer, ItemSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -60,3 +62,38 @@ class CategoryViewSet(viewsets.ModelViewSet):
         
         # return Response(products)
     
+    
+    
+class GameViewSet(viewsets.ModelViewSet):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer
+    
+    
+class GiftCardViewSet(viewsets.ModelViewSet):
+    queryset = GiftCard.objects.all()
+    serializer_class = GiftCardSerializer
+    
+    
+class ItemViewSet(viewsets.ViewSet):
+    def list(self, request):
+        games = Game.objects.all()
+        giftcards = GiftCard.objects.all()
+        gameitems = GameItem.objects.all()
+        combined = list(games) + list(giftcards) + list(gameitems)
+        combined.sort(key=lambda x: x.id)
+        
+        serializer = ItemSerializer(combined, many=True, context={'request': request})
+        return Response(serializer.data)
+    
+    
+    def retrieve(self, request, pk=None):
+        try:
+            item = Game.objects.get(pk=pk)
+        except Game.DoesNotExist:
+            try:
+                item = GiftCard.objects.get(pk=pk)
+            except GiftCard.DoesNotExist:
+                item = get_object_or_404(GameItem, pk=pk)
+                
+        serializer = ItemSerializer(item, context={'request': request})
+        return Response(serializer.data)
