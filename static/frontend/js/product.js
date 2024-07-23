@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
             event.preventDefault();
             const slug = event.target.dataset.slug;
             fetchCategoryData(slug);
-            window.location.href = `/category/${slug}/`;
         }
     });
 
