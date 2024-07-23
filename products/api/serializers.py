@@ -60,3 +60,6 @@ class ItemSerializer(serializers.Serializer):
             serializer = GiftCardSerializer(instance, context=self.context)
         elif isinstance(instance, GameItem):
             serializer = GameItemSerializer(instance, context=self.context)
+        else:
+            raise Exception('Unexpected type of Item')
+        return serializer.data

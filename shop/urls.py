@@ -1,7 +1,7 @@
 from django.urls import path, include
 from shop import views as shop_views
 from products.views import product_search
-from products.api.api_views import CategoryViewSet
+from products.api.api_views import CategoryViewSet, GameViewSet, ItemViewSet, GiftCardViewSet
 
 from rest_framework.routers import DefaultRouter
 
@@ -11,7 +11,12 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, Sp
 
 # Router Registers
 router = DefaultRouter()
+
 router.register(r'categories', CategoryViewSet, basename='category')
+router.register(r'games', GameViewSet)
+router.register(r'giftcards', GiftCardViewSet)
+router.register(r'items', ItemViewSet, basename='items')
+
 
 urlpatterns = [
     path('', shop_views.ShopHome, name='home'),
