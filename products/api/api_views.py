@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 
 from products.models import Category, Game, GiftCard, GameItem
 
-from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer, ProductSerializer, ItemSerializer
+from .serializers import GameSerializer, GiftCardSerializer, CategorySerialzer, ProductSerializer, GameItemSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -82,18 +82,32 @@ class ItemViewSet(viewsets.ViewSet):
         combined = list(games) + list(giftcards) + list(gameitems)
         combined.sort(key=lambda x: x.id)
         
-        serializer = ItemSerializer(combined, many=True, context={'request': request})
-        return Response(serializer.data)
+        data = []
+        for item in combined:
+            if isinstance(item, Game):
+                serializer = GameSerializer(item, context=self.context)
+            elif isinstance(item, GiftCard):
+                serializer = GiftCardSerializer(item, context=self.context)
+            elif isinstance(item, GameItem):
+                serializer = GameItemSerializer(item, context=self.context)
+            else:
+                raise Exception('Unexpected type of Item')
+            data.append(serializer.data)
+        
+        
+        return Response(data)
     
     
     def retrieve(self, request, pk=None):
         try:
             item = Game.objects.get(pk=pk)
+            serializer = GameSerializer(item, context={'request': request})
         except Game.DoesNotExist:
             try:
                 item = GiftCard.objects.get(pk=pk)
+                serializer = GiftCardSerializer(item, context={'request': request})
             except GiftCard.DoesNotExist:
                 item = get_object_or_404(GameItem, pk=pk)
+                serializer = GameItemSerializer(item, context={'request': request})
                 
-        serializer = ItemSerializer(item, context={'request': request})
         return Response(serializer.data)

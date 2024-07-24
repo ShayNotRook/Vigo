@@ -52,14 +52,3 @@ class GameItemSerializer(ProductSerializer):
         model = GameItem
         
         
-class ItemSerializer(serializers.Serializer):
-    def to_representation(self, instance):
-        if isinstance(instance, Game):
-            serializer = GameSerializer(instance, context=self.context)
-        elif isinstance(instance, GiftCard):
-            serializer = GiftCardSerializer(instance, context=self.context)
-        elif isinstance(instance, GameItem):
-            serializer = GameItemSerializer(instance, context=self.context)
-        else:
-            raise Exception('Unexpected type of Item')
-        return serializer.data

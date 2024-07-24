@@ -153,6 +153,16 @@ class Dev(Configuration):
     USE_I18N = True
 
     USE_TZ = True
+    
+    # REST Framework Settings
+    REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.AllowAny',
+        ],
+        'DEFAULT_RENDERER_CLASSES': (
+            'rest_framework.renderers.JSONRenderer',
+        )
+    }
 
 
     # Static files (CSS, JavaScript, Images)
