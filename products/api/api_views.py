@@ -21,6 +21,13 @@ class CategoryViewSet(viewsets.ModelViewSet):
             return GiftCardSerializer
         return super().get_serializer_class()
     
+    @action(detail=False, methods=['get'])
+    def top_level_categories(self, request):
+        self.queryset = Category.objects.filter(parent__isnull=True)
+        return super().list(request)
+        
+        
+    
     
     @action(detail=True, methods=['get'])
     def products(self, request, slug=None):
