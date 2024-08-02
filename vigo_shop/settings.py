@@ -62,6 +62,7 @@ class Dev(Configuration):
         'crispy_forms',
         'crispy_bootstrap4',
         'rest_framework',
+        'rest_framework_simplejwt',
         'drf_spectacular',
         
     ]
@@ -107,6 +108,7 @@ class Dev(Configuration):
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    
 
 
     # Password validation
@@ -130,8 +132,25 @@ class Dev(Configuration):
     
     # REST Settings
     REST_FRAMEWORK = {
-        'DEFAULT_SCHEMA_CLASS':
-            'drf_spectacular.openapi.AutoSchema',
+        'DEFAULT_SCHEMA_CLASS': (
+                'drf_spectacular.openapi.AutoSchema',
+        ),
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+        ),
+        
+    }
+    
+    from datetime import timedelta
+    # Simple JWT Settings
+    SIMPLE_JWT = {
+        'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+        'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+        'ROTATE_REFRESH_TOKEN': False,
+        'BLACKLIST_AFTER_ROTATION': True,
+        'ALGORITHM': 'HS256',
+        'SIGNING_KEY': SECRET_KEY,
+        'AUTH_HEADER_TYPES': ('Bearer',),
     }
     
     # Spectacular Settings

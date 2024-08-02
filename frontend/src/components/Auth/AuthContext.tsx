@@ -19,6 +19,23 @@ export const useAuth = () => {
 }
 
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const 
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }): any => {
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) { 
+            setIsAuthenticated(true);
+        }
+    }, []);
+
+    const login = async(username: string, password: string) => {
+        const response = await fetch('/api/token/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        }) 
+    }
 }
