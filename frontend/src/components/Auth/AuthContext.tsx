@@ -36,6 +36,24 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }): a
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ username, password }),
-        }) 
-    }
+        });
+        const data = await response.json();
+        if (response.ok) {
+            localStorage.setItem('token', data.access);
+            setIsAuthenticated(true);
+        } else {
+            throw new Error(data.detail);
+        }
+    };
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        setIsAuthenticated(false):
+    };
+
+    return (
+        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+            {children}
+        </AuthContext.Provider>
+    )
 }
