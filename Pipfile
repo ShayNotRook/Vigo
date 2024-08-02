@@ -12,6 +12,7 @@ crispy-bootstrap4 = "*"
 environs = "*"
 djangorestframework = "*"
 drf-spectacular = "*"
+rest-framework-simplejwt = "*"
 
 [dev-packages]
 

@@ -9,7 +9,8 @@ const ItemList: React.FC = () => {
     useEffect(() => {
         fetchItems()
             .then(data => setItems(data))
-            .catch(error => console.error('Error fetching items:', error));    }, []);
+            .catch(error => console.error('Error fetching items:', error));    
+        }, []);
     
     return (
         <div>
@@ -18,7 +19,7 @@ const ItemList: React.FC = () => {
                 {items.map(item => (
                     <li key={item.id}>
                         <Link to={`/item/${item.id}`}>
-                            <img src={item.image} alt={item.name} />
+                            <img src={item.image_url} alt={item.name} />
                             <h3>{item.name}</h3>
                             <p>Price: {item.price}</p>
                         </Link>

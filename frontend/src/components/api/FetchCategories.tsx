@@ -9,7 +9,8 @@ export const fetchTopCategories = async(): Promise<Category[]> => {
     if (!response.ok) {
         throw new Error(`HTTP Error! Status: ${response.status}`)
     }
-    return response.json()
+    const data = await response.json();
+    return data;
 }
 
 
