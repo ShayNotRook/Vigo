@@ -77,7 +77,6 @@ class Dev(Configuration):
     ]
 
     ROOT_URLCONF = 'vigo_shop.urls'
-
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -159,9 +158,9 @@ class Dev(Configuration):
         'DEFAULT_PERMISSION_CLASSES': [
             'rest_framework.permissions.AllowAny',
         ],
-        'DEFAULT_RENDERER_CLASSES': (
-            'rest_framework.renderers.JSONRenderer',
-        )
+        # 'DEFAULT_RENDERER_CLASSES': (
+        #     'rest_framework.renderers.JSONRenderer',
+        # )
     }
 
 

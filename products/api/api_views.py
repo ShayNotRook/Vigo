@@ -85,11 +85,11 @@ class ItemViewSet(viewsets.ViewSet):
         data = []
         for item in combined:
             if isinstance(item, Game):
-                serializer = GameSerializer(item, context=self.context)
+                serializer = GameSerializer(item, context={'request': request})
             elif isinstance(item, GiftCard):
-                serializer = GiftCardSerializer(item, context=self.context)
+                serializer = GiftCardSerializer(item, context={'request': request})
             elif isinstance(item, GameItem):
-                serializer = GameItemSerializer(item, context=self.context)
+                serializer = GameItemSerializer(item, context={'request': request})
             else:
                 raise Exception('Unexpected type of Item')
             data.append(serializer.data)
