@@ -1,6 +1,8 @@
 import { BrowserRouter as  Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Footer from './components/Main/Footer'
+import ItemList from './components/Product/List/ItemList'
+import ItemDetail from './components/Product/Retrieve/ItemDetail'
 function App() {
 
   return (
@@ -8,10 +10,10 @@ function App() {
       <div className='App'>
         {/* <Header /> */}
         <Routes>
-          <Route path="/" />
+          {/* <Route path="/" /> */}
           <Route path="/about" />
-          <Route path="/items" />
-          <Route path="/item/:id" />
+          <Route path="/items" element={<ItemList />} />
+          <Route path="/item/:id" element={<ItemDetail />} />
         </Routes>
         <Footer />
       </div>

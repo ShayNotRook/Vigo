@@ -9,8 +9,7 @@ const ItemList: React.FC = () => {
     useEffect(() => {
         fetchItems()
             .then(data => setItems(data))
-            .catch(error => console.error('Error fetching items:', error));
-    }, []);
+            .catch(error => console.error('Error fetching items:', error));    }, []);
     
     return (
         <div>

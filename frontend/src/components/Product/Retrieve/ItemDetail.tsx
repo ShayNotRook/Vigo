@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchItemById, Item } from '../../api/FetchItems';
+import './itemDetail.css'
 
 const ItemDetail: React.FC = () => {
     const { id } = useParams<{ id: string}>();
@@ -18,9 +19,9 @@ const ItemDetail: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className='item-container'>
             <h1>{item.name}</h1>
-            <img src={item.image} alt={item.name} />
+            <img src={item.image_url} alt={item.name} />
             <p>Price: ${item.price}</p>
             <p>{item.description}</p>
         </div>
