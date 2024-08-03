@@ -28,7 +28,7 @@ Vigo is an e-commerce platform dedicated to providing a diverse selection of gam
 ## Technologies
 
 - **Backend**: Django (Python)
-- **Frontend**: HTML, CSS, JavaScript, Reat
+- **Frontend**: HTML, CSS, JavaScript, React
 - **Database**: SQLite (development), PostgreSQL (planned for production)
 - **Other**: Font Awesome for icons
 
