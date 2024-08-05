@@ -104,20 +104,6 @@
     font-size: 12px;
 }
 
-/* .cart-summary span {
-    background-color: red;
-    color: white;
-    border-radius: 100%;
-    padding: 6px 6px;
-    font-size: 12px;
-    position: absolute;
-    top: -5px;
-    right: -10px;
-} */
-
-/* .cart-summary img {
-    height: 50px;
-} */
 
 .cart-details {
     display: none;
@@ -186,4 +172,77 @@
 
 .cart-notification.fade {
     opacity: 0;
+}
+
+.hamburger-menu {
+    position: relative;
+}
+
+.menu-toggle {
+    cursor: pointer;
+}
+
+.menu-toggle img {
+    width: 30px;
+    height: 30px;
+}
+
+.menu-content {
+    border-top-left-radius: 10px;
+    position: fixed;
+    top: 76px;
+    right: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: rgb(59, 82, 195);
+    color: white;
+    border-left: 1px solid #ccc;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    padding-top: 60px;
+}
+
+.menu-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-content ul li {
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-content ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: rgb(213, 213, 213);
+}
+
+.menu-content ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #333;
+}
+
+
+.menu-content ul li ul.subcategories {
+    display: none;
+    margin: 1rem;
+    background-color: #21206a;
+}
+
+/* Style for when the menu is toggled */
+.hamburger-menu.active .menu-content {
+    right: 0;
+}
+
+.hamburger-menu .menu-content .subcategories {
+    display: flex;
+    flex-direction: column;
+}
+
+.hamburger-menu .menu-content .subcategories.active {
+    display: flex;
 }

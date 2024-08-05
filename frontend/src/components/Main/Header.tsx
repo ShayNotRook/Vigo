@@ -11,13 +11,32 @@ import './header.css';
 
 const Header: React.FC = () => {
     const { isAuthenticated, logout } = useAuth();
-    const [categories, setCategories] = useState<Category[]>([])
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading ] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        fetchTopCategories()
-            .then(data => setCategories(data))
-            .catch(error => console.log('Error fetching categories:', error));
-    })
+        const getCategories = async() => {
+            try {
+                const data = await fetchTopCategories();
+                setCategories(data);
+                setLoading(false);
+            } catch (error) {
+                setError('Error fetching categories');
+                setLoading(false);
+            }
+        };
+
+        getCategories();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
+
+    if (error) {
+        return <div>{error}</div>
+    }
 
     return (
         <nav className="navbar navbar-expand-sm sticky-top">
