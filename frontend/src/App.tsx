@@ -1,5 +1,4 @@
 import { BrowserRouter as  Router, Routes, Route } from 'react-router-dom'
-import './App.css'
 import Footer from './components/Main/Footer'
 import ItemList from './components/Product/List/ItemList'
 import ItemDetail from './components/Product/Retrieve/ItemDetail'

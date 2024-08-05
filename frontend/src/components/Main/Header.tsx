@@ -7,7 +7,6 @@ import cartIcon from '../../assets/icons/shopping-cart.png';
 import { fetchTopCategories, Category } from "../api/FetchCategories";
 import { useAuth } from "../Auth/AuthContext";
 import './header.css';
-import 'bootstrap/dist/css/bootstrap.css';
 
 
 const Header: React.FC = () => {
