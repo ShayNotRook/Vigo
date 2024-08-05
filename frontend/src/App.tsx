@@ -5,6 +5,8 @@ import ItemDetail from './components/Product/Retrieve/ItemDetail'
 import Header from './components/Main/Header';
 import Home from './components/Main/Home';
 import { AuthProvider } from './components/Auth/AuthContext'
+import Login from './components/Auth/Login';
+
 function App() {
 
   return (
@@ -15,7 +17,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" />
-            <Route path="/items" element={<ItemList />} />
+            <Route path="/shop" element={<ItemList />} />
+            <Route path='/login' element={<Login />} />
             <Route path="/item/:id" element={<ItemDetail />} />
           </Routes>
           <Footer />

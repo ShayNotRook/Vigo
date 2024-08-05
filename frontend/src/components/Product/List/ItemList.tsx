@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
 import { fetchItems, Item } from "../../api/FetchItems";
+import ItemCard from "../ItemCard";
+import './Item.css'
+
+interface ItemListProps {
+    addToCart: (id: number) => void;
+}
+
+// interface Item {
+//     id: number;
+//     name: string;
+//     price: number;
+//     image_url: string;
+//     platform: string;
+// }
 
 
-const ItemList: React.FC = () => {
+const ItemList: React.FC<ItemListProps> = ({ addToCart }) => {
     const [items, setItems] = useState<Item[]>([]);
 
     useEffect(() => {
@@ -13,19 +26,18 @@ const ItemList: React.FC = () => {
         }, []);
     
     return (
-        <div>
-            <h1>Items</h1>
-            <ul>
-                {items.map(item => (
-                    <li key={item.id}>
-                        <Link to={`/item/${item.id}`}>
-                            <img src={item.image_url} alt={item.name} />
-                            <h3>{item.name}</h3>
-                            <p>Price: {item.price}</p>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+        <div className="item-list">
+            {items.map(item => (
+                <ItemCard
+                    key={item.id}
+                    id={item.id}
+                    name={item.name}
+                    price={item.price}
+                    image_url={item.image_url}
+                    platform={item.platform}
+                    addToCart={addToCart}
+                    />
+            ))}
         </div>
     );
 };

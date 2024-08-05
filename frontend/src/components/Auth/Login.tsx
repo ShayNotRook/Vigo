@@ -21,9 +21,9 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleLogin}>
+        <div className="container-fluid">
+            <h2 style={{marginTop: "20px"}}>Login</h2>
+            <form onSubmit={handleLogin} style={{marginInline: "50px", marginTop: "20px"}}>
                 <div>
                     <label>Username:</label>
                     <input 
@@ -35,13 +35,13 @@ const Login: React.FC = () => {
                 <div>
                     <label>Password:</label>
                     <input
-                    type="paasword"
+                    type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type='submit'>Login</button>
+                <button type='submit' className='btn btn-primary'>Login</button>
             </form>
         </div>
     );
