@@ -199,6 +199,7 @@ class GameItem(Product):
     # price = models.DecimalField(max_digits=6, decimal_places=2)
     quantity = models.IntegerField(default=0)
     image = models.ImageField(upload_to=item_cover_upload_to)
+    platform = models.CharField(choices=PLATFORM_CHOICES, max_length=200, default='Steam')
     
     def __str__(self):
         return f"{self.name} - {self.game}"

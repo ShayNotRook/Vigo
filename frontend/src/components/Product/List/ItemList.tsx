@@ -29,7 +29,6 @@ const ItemList: React.FC<ItemListProps> = ({ addToCart }) => {
         <div className="item-list">
             {items.map(item => (
                 <ItemCard
-                    key={item.id}
                     id={item.id}
                     name={item.name}
                     price={item.price}

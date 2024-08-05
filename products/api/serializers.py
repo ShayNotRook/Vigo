@@ -28,7 +28,7 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Game
-        fields = ['id', 'name', 'price', 'description', 'category', 'image_url']
+        fields = ['id', 'name', 'price', 'description', 'category', 'platform', 'image_url']
     
     def get_image_url(self, obj):
         request = self.context.get('request')

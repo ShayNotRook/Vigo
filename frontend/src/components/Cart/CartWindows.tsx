@@ -36,11 +36,11 @@ const CartWindows: React.FC = () => {
             {isOpen && (
                 <div className='cart-details'>
                     <ul>
-                        {cartItems.map(item => (
-                            <li key={item.id}>
+                        {cartItems.map(cartItem => (
+                            <li key={cartItem.id}>
                                 <div className='cart-item-details'>
-                                    <p>{item.name}</p>
-                                    <p>{item.price} x {item.quantity}</p>
+                                    <p>{cartItem.name}</p>
+                                    <p>{cartItem.price} x {cartItem.quantity}</p>
                                 </div>
                             </li>
                         ))}

@@ -24,7 +24,7 @@ export const fetchItemById = async(id: number): Promise<Item> => {
 export interface Item {
     id: number;
     name: string;
-    price: number;
+    price: any;
     description: string;
     platform: string;
     image_url: string;

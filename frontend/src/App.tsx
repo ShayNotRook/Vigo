@@ -6,8 +6,15 @@ import Header from './components/Main/Header';
 import Home from './components/Main/Home';
 import { AuthProvider } from './components/Auth/AuthContext'
 import Login from './components/Auth/Login';
+import { useState } from 'react';
 
 function App() {
+
+  const [cartItem, setCartItems] = useState<Number[]>([]);
+
+  const addToCart = (id: Number) => {
+    setCartItems([...cartItem, id]);
+  }
 
   return (
     <AuthProvider>
@@ -17,7 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" />
-            <Route path="/shop" element={<ItemList />} />
+            <Route path="/shop" element={<ItemList addToCart={addToCart} />} />
             <Route path='/login' element={<Login />} />
             <Route path="/item/:id" element={<ItemDetail />} />
           </Routes>
