@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect} from 'react';
 
 
-interface AutContextType {
+interface AuthContextType {
     isAuthenticated : boolean;
     login: (username: string, password: string) => Promise<void>;
     logout: () => void;
 }
 
-const AuthContext = createContext<AutContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 
 export const useAuth = () => {
@@ -48,7 +48,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }): a
 
     const logout = () => {
         localStorage.removeItem('token');
-        setIsAuthenticated(false):
+        setIsAuthenticated(false);
     };
 
     return (

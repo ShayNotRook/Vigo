@@ -43,3 +43,5 @@ const HamburgerMenu: React.FC<HamburgerProps> = ({ categories }) => {
     )
 
 }
+
+export default HamburgerMenu;
