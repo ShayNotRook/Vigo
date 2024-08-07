@@ -1,8 +1,8 @@
-import styles from './footer.module.css'
+import './footer.css'
 
 const Footer = () => {
   return (
-    <div className={styles.footer}>
+    <div className="footer">
         <p>&copy; 2024 Vigo, All rights reserved.</p>
     </div>
   )

@@ -6,14 +6,14 @@ import Header from './components/Main/Header';
 import Home from './components/Main/Home';
 import { AuthProvider } from './components/Auth/AuthContext'
 import Login from './components/Auth/Login';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-function App() {
+const App: React.FC = () => {
 
-  const [cartItem, setCartItems] = useState<Number[]>([]);
+  const [cartItems, setCartItems] = useState<number[]>([]);
 
-  const addToCart = (id: Number) => {
-    setCartItems([...cartItem, id]);
+  const addToCart = (id: number) => {
+    setCartItems([...cartItems, id]);
   }
 
   return (
@@ -26,7 +26,7 @@ function App() {
             <Route path="/about" />
             <Route path="/shop" element={<ItemList addToCart={addToCart} />} />
             <Route path='/login' element={<Login />} />
-            <Route path="/item/:id" element={<ItemDetail />} />
+            <Route path="/shop/product/:id" element={<ItemDetail addToCart={addToCart}/>} />
           </Routes>
           <Footer />
         </div>

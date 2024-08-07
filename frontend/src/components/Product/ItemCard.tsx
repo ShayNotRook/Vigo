@@ -1,5 +1,7 @@
 import React from "react";
 import './ItemCard.css';
+import { Link } from "react-router-dom";
+
 
 interface ItemCardProps {
     id: number;
@@ -16,9 +18,9 @@ const ItemCard: React.FC<ItemCardProps> = ({ id, name, price, image_url, platfor
         <div className="item-card">
             <img src={image_url} alt={name} className="item-card-image" />
             <div className="item-card-details">
-                <h3>{name}</h3>
+                <Link to={`product/${id}`}>{name}</Link>
                 <p>Platform: {platform}</p>
-                <p>Price: {price}</p>
+                <p>Price: {price}$</p>
                 <button onClick={() => addToCart(id)}>Add to Cart</button>
             </div>
         </div>

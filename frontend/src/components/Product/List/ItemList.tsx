@@ -28,14 +28,16 @@ const ItemList: React.FC<ItemListProps> = ({ addToCart }) => {
     return (
         <div className="item-list">
             {items.map(item => (
-                <ItemCard
-                    id={item.id}
-                    name={item.name}
-                    price={item.price}
-                    image_url={item.image_url}
-                    platform={item.platform}
-                    addToCart={addToCart}
-                    />
+                <li key={item.id}>
+                    <ItemCard
+                        id={item.id}
+                        name={item.name}
+                        price={item.price}
+                        image_url={item.image_url}
+                        platform={item.platform}
+                        addToCart={addToCart}
+                        />
+                </li>
             ))}
         </div>
     );

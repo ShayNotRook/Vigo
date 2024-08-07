@@ -3,7 +3,12 @@ import { useParams } from 'react-router-dom';
 import { fetchItemById, Item } from '../../api/FetchItems';
 import './itemDetail.css'
 
-const ItemDetail: React.FC = () => {
+interface ItemDetailProps {
+    addToCart: (id: number) => void;
+}
+
+
+const ItemDetail: React.FC<ItemDetailProps> = ({ addToCart }) => {
     const { id } = useParams<{ id: string}>();
     const [item, setItem] = useState<Item | null>(null);
 
@@ -20,10 +25,15 @@ const ItemDetail: React.FC = () => {
 
     return (
         <div className='item-container'>
-            <h1>{item.name}</h1>
-            <img src={item.image_url} alt={item.name} />
-            <p>Price: ${item.price}</p>
-            <p>{item.description}</p>
+            <img src={item.image_url} alt={item.name} className="item-detail-image" />
+            <div className='item-detail-info'>
+                <h1>{item.name}</h1>
+                <p>{item.description}</p>
+                <p>Platform: {item.platform}</p>
+                <p>Price: {item.price}</p>
+                <button onClick={() => addToCart(item.id)}>Add to Cart</button>
+            </div>
+            
         </div>
     );
 };
