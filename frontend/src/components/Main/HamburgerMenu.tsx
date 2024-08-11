@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import menuBurgerIcon from "../../assets/icons/menu-burger.png";
 import { Category } from '../api/FetchCategories';
 
@@ -7,9 +7,27 @@ interface HamburgerProps {
 }
 
 
-const HamburgerMenu: React.FC<HamburgerProps> = ({ categories }) => {
+const HamburgerMenu: React.FC = () => {
+    const [categories, setCategories] = useState<Category[]>([]);
     const [isActive, setIsActive] = useState(false);
     const [expandedCategory, setExpandedCategory] = useState<number | null>(null);
+
+    useEffect(() => {
+        const fetchTopCategories = async() => {
+            try {
+                const response = await fetch('/api/categories/top_level_categories/')
+            if (!response.ok) {
+                throw new Error(`Failed to Fetch categories!`)
+                }
+                const data = await response.json();
+                setCategories(data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        }
+
+        fetchTopCategories();
+    },[])
 
     const toggleMenu = () => {
         setIsActive(!isActive);
