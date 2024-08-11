@@ -28,8 +28,8 @@ const ItemList: React.FC<ItemListProps> = ({ addToCart }) => {
     return (
         <div className="item-list">
             {items.map(item => (
-                <li key={item.id}>
                     <ItemCard
+                        key={item.id}
                         id={item.id}
                         name={item.name}
                         price={item.price}
@@ -37,7 +37,6 @@ const ItemList: React.FC<ItemListProps> = ({ addToCart }) => {
                         platform={item.platform}
                         addToCart={addToCart}
                         />
-                </li>
             ))}
         </div>
     );

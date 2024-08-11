@@ -1,3 +1,4 @@
+from typing import Any
 from django.contrib import admin
 from .models import Cart, CartItem, Order, OrderItem
 from .forms import CartItemForm
@@ -12,6 +13,15 @@ class CartItemAdmin(admin.ModelAdmin):
     list_display = ('cart', 'get_content_object_name', 'quantity', 'get_total_price')
     readonly_fields = ('get_total_price',)
     form = CartItemForm
+    
+    def save_model(self, request: Any, obj: Any, form: Any, change: Any) -> None:
+        content_type = form.cleaned_data.get('content_type')
+        object_id = form.cleaned_data.get('object_id')
+        
+        if content_type and object_id:
+            obj.content_type = content_type.get_object_for_this_type(id=object_id)
+        
+        super().save_model(request, obj, form, change)
     
     def get_total_price(self, obj):
         return obj.get_total_price()

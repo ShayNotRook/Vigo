@@ -12,6 +12,7 @@ class CartItemForm(forms.ModelForm):
     class Meta:
         model = CartItem
         fields = ['cart', 'content_type', 'content_object', 'quantity']
+        exclude = ['content_object',]
         
     def __init__(self, *args,  **kwargs):
         super().__init__(*args, **kwargs)
